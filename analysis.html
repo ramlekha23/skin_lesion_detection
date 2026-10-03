@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DermaScan AI</title>
+<link rel="icon" type="image/png" href="c:\Users\elava\Downloads\0e39a743-bec1-4ac9-9020-8d3fb1b3d1f3.webp">
+    <link rel="stylesheet" href="style.css">
+    <!-- Same CSS -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body class="analysis-page">
+
+    <div class="app">
+
+
+        <!-- ================= SIDEBAR ================= -->
+
+         <aside class="sidebar" id="sidebar">
+
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    <img src="C:\Users\elava\Downloads\0e39a743-bec1-4ac9-9020-8d3fb1b3d1f3.webp" height="30"
+            >
+                </div>
+
+                <span>
+                    DermaScan <strong>AI</strong>
+                </span>
+
+            </div>
+
+
+            <div class="welcome">
+
+                <p>
+                    Welcome,
+                </p>
+
+                <h2 id="sidebarUserName">
+                    User 
+                </h2>
+
+                <span>
+                    Let's keep your skin healthy!
+                </span>
+
+            </div>
+
+
+            <nav class="navigation">
+<a href="image.html"
+                   class="nav-item active">
+
+                    <span class="nav-icon">
+                    🧠
+                    </span>
+                    
+                    <span>
+                        Upload Image
+                    </span>
+
+                </a>
+
+                
+
+
+               <a href="history.html"
+                   class="nav-item active">
+
+                    <span class="nav-icon">
+                      🕘
+                    </span>
+
+                    <span>
+                        History
+                    </span>
+
+                </a>
+
+
+            </nav>
+
+
+            <div class="sidebar-bottom">
+
+                <div class="leaf-decoration">
+                    🌿
+                </div>
+
+                <div class="care-message">
+
+                    <span>
+                        ❤️
+                    </span>
+
+                    <p>
+                        Early Detection.<br>
+                        Better Care.<br>
+                        Healthier You
+                    </p>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+
+
+
+        <!-- ================= MAIN ================= -->
+
+        <main class="main">
+
+
+            <!-- HEADER -->
+
+            <header class="header">
+
+                <button
+                    class="menu-button"
+                    id="menuButton">
+
+                    ☰
+
+                </button>
+
+
+                <div class="mobile-logo">
+
+                    🌿 SkinCare
+                    <strong>AI</strong>
+
+                </div>
+
+
+                <div class="header-navigation">
+
+                    <a href="image.html"
+                       class="top-link active">
+
+                        🏠
+                        <span>Home</span>
+
+                    </a>
+
+
+                    
+
+
+                   <!-- ================= USER MENU ================= -->
+
+                    <div class="user-menu"
+                         id="userMenu">
+
+
+                        <!-- USER BUTTON -->
+
+                        <div class="user-trigger"
+                             id="userTrigger">
+
+
+                            <div class="user-avatar">
+                                👤
+                            </div>
+
+
+                            <!-- Dynamic user name -->
+
+                            <span id="topUserName">
+                                User
+                            </span>
+
+
+                            
+
+
+                        </div>
+
+
+
+                        <!-- ================= FLOATING DROPDOWN ================= -->
+
+                        <div class="user-dropdown"
+                             id="userDropdown">
+
+
+                            <!-- USER INFORMATION -->
+
+                            <div class="user-info">
+
+
+                                <div class="dropdown-avatar">
+                                    👤
+                                </div>
+
+
+                                <div class="user-details">
+
+
+                                    <!-- Dynamic name -->
+
+                                    <strong id="dropdownUserName">
+                                        User
+                                    </strong>
+
+
+                                    <!-- Dynamic email -->
+
+                                    <span id="dropdownUserEmail">
+                                        user@gmail.com
+                                    </span>
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <div class="dropdown-divider">
+                            </div>
+
+
+
+                            <!-- PROFILE SETTINGS -->
+
+                            <button
+                                class="dropdown-item"
+                                onclick="openProfileSettings()">
+
+
+                                <span>
+                                    ⚙️
+                                </span>
+
+
+                                <span>
+                                    Profile Settings
+                                </span>
+
+
+                            </button>
+
+
+
+                            <!-- CHANGE PASSWORD -->
+
+                            <button
+                                class="dropdown-item"
+                                onclick="changePassword()">
+
+
+                                <span>
+                                    🔒
+                                </span>
+
+
+                                <span>
+                                    Change Password
+                                </span>
+
+
+                            </button>
+
+
+
+                            <div class="dropdown-divider">
+                            </div>
+
+
+
+                            <!-- LOGOUT -->
+
+                            <button
+                                class="dropdown-item logout-item"
+                                onclick="logoutUser()">
+
+
+                                <span>
+                                    🚪
+                                </span>
+
+
+                                <span>
+                                    Logout
+                                </span>
+
+
+                            </button>
+
+
+                        </div>
+
+                        <!-- END USER DROPDOWN -->
+
+
+                    </div>
+
+                    <!-- END USER MENU -->
+
+
+                </div>
+
+            </header>
+
+
+
+            <!-- ================= ANALYSIS CONTENT ================= -->
+
+            <section class="analysis-content">
+
+
+                <div class="analysis-card">
+
+
+                    <!-- Circular AI Icon -->
+
+                    <div class="analysis-circle">
+
+                        <div class="circle-progress">
+
+                            <div class="brain-icon">
+                                🧠
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Heading -->
+
+                    <h1>
+                        Analyzing your image...
+                    </h1>
+
+
+                    <p class="analysis-subtitle">
+                        This may take a few moments.
+                    </p>
+
+
+
+                    <!-- PROCESS STEPS -->
+
+                    <div class="processing-steps">
+
+
+                        <!-- STEP 1 -->
+
+                        <div class="process-step completed">
+
+                            <div class="step-icon">
+                                ✓
+                            </div>
+
+                            <span>
+                                Image preprocessing
+                            </span>
+
+                        </div>
+
+
+
+                        <!-- STEP 2 -->
+
+                        <div class="process-step completed">
+
+                            <div class="step-icon">
+                                ✓
+                            </div>
+
+                            <span>
+                                Resize (224 × 224)
+                            </span>
+
+                        </div>
+
+
+
+                        <!-- STEP 3 -->
+
+                        <div class="process-step completed">
+
+                            <div class="step-icon">
+                                ✓
+                            </div>
+
+                            <span>
+                                Normalization
+                            </span>
+
+                        </div>
+
+
+
+                        <!-- STEP 4 -->
+
+                        <div class="process-step completed">
+
+                            <div class="step-icon">
+                                ✓
+                            </div>
+
+                            <span>
+                                Data augmentation
+                            </span>
+
+                        </div>
+
+
+
+                        <!-- STEP 5 -->
+
+                        <div class="process-step current">
+
+                            <div class="step-icon">
+                            </div>
+
+                            <span>
+                                Running AI model (EfficientNetB0)
+                            </span>
+
+                        </div>
+
+
+
+                        <!-- STEP 6 -->
+
+                        <div class="process-step">
+
+                            <div class="step-icon">
+                            </div>
+
+                            <span>
+                                Generating result
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+
+
+        <!-- ================= CHATBOT ================= -->
+
+        <button
+            class="chatbot-button"
+            id="chatbotButton">
+
+            🤖
+
+        </button>
+
+
+
+        <div
+            class="chatbot"
+            id="chatbot">
+
+
+            <div class="chat-header">
+
+                <div>
+
+                    <strong>
+                        🤖DermaScan AI
+                    </strong>
+
+                    <span>
+                        AI Assistant
+                    </span>
+
+                </div>
+
+
+                <button id="closeChat">
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="chat-body">
+
+                <div class="bot-message">
+
+                    Hi! 👋
+
+                    <br><br>
+
+                    I'm SkinGuard AI.
+                    How can I help you?
+
+                </div>
+
+            </div>
+
+
+            <div class="chat-input">
+
+                <input
+                    type="text"
+                    id="chatInput"
+                    placeholder="Ask a question..."
+                >
+
+                <button id="sendMessage">
+                    ➤
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Same JavaScript -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

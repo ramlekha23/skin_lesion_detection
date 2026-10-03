@@ -1,0 +1,6 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+ISIC_2019_Training_Input.zip
+.env

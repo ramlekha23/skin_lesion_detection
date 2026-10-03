@@ -1,0 +1,5573 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DermaScan AI </title>
+<link rel="icon" type="image/png" href="c:\Users\elava\Downloads\0e39a743-bec1-4ac9-9020-8d3fb1b3d1f3.webp">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- jsPDF - ONLY ONCE -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+/* =====================================================
+   RESULT PAGE - SKINGUARD CHATBOT
+===================================================== */
+
+.chatbot-button {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    width: 58px;
+    height: 58px;
+    border: none;
+    border-radius: 50%;
+    background: #1596b8;
+    color: white;
+    font-size: 27px;
+    cursor: pointer;
+    z-index: 99999;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.20);
+}
+
+.chatbot-button:hover {
+    transform: scale(1.05);
+}
+
+.chatbot {
+    position: fixed;
+    right: 25px;
+    bottom: 95px;
+
+    width: 350px;
+    max-width: calc(100vw - 40px);
+    height: 470px;
+
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.22);
+
+    display: none;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    z-index: 100000;
+}
+
+.chatbot.open {
+    display: flex !important;
+}
+
+.chat-header {
+    min-height: 65px;
+    padding: 12px 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: #1596b8;
+    color: white;
+}
+
+.chat-header strong {
+    display: block;
+    font-size: 16px;
+}
+
+.chat-header span {
+    display: block;
+    font-size: 12px;
+    margin-top: 3px;
+    opacity: 0.9;
+}
+
+.chat-header button {
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 27px;
+    cursor: pointer;
+}
+
+.chat-body {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background: #f5fafc;
+}
+
+.bot-message,
+.user-message {
+    max-width: 80%;
+    padding: 10px 13px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.4;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+}
+
+.bot-message {
+    background: white;
+    color: #333;
+    margin-right: auto;
+}
+
+.user-message {
+    background: #1596b8;
+    color: white;
+    margin-left: auto;
+}
+
+.chat-input {
+    display: flex;
+    gap: 8px;
+    padding: 10px;
+    background: white;
+    border-top: 1px solid #e5e5e5;
+}
+
+.chat-input input {
+    flex: 1;
+    min-width: 0;
+    padding: 11px 12px;
+    border: 1px solid #d5d5d5;
+    border-radius: 10px;
+    outline: none;
+    font-size: 14px;
+}
+
+.chat-input button {
+    width: 45px;
+    border: none;
+    border-radius: 10px;
+    background: #1596b8;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+
+    .chatbot {
+        right: 15px;
+        bottom: 85px;
+        width: calc(100vw - 30px);
+        height: 450px;
+    }
+
+    .chatbot-button {
+        right: 15px;
+        bottom: 15px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+
+        <!-- BRAND -->
+
+        <div class="brand">
+
+            <div class="brand-icon">
+
+                <img
+                    src="C:\Users\elava\Downloads\0e39a743-bec1-4ac9-9020-8d3fb1b3d1f3.webp"
+                    height="30"
+                    alt="DermaScan AI">
+
+            </div>
+
+            <span>
+                DermaScan <strong>AI</strong>
+            </span>
+
+        </div>
+
+
+        <!-- WELCOME -->
+
+        <div class="welcome">
+
+            <p>
+                Welcome,
+            </p>
+
+            <h2 id="sidebarUserName">
+                User
+            </h2>
+
+            <span>
+                Let's keep your skin healthy!
+            </span>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="navigation">
+
+
+            <!-- UPLOAD -->
+
+            <a
+                href="image.html"
+                class="nav-item active">
+
+                <span class="nav-icon">
+                    🧠
+                </span>
+
+                <span>
+                    Upload Image
+                </span>
+
+            </a>
+
+
+            <!-- HISTORY -->
+
+            <a
+                href="history.html"
+                class="nav-item active">
+
+                <span class="nav-icon">
+                    🕘
+                </span>
+
+                <span>
+                    History
+                </span>
+
+            </a>
+
+
+            <!-- GENERAL INFORMATION -->
+
+            <button
+                type="button"
+                class="nav-item sidebar-info-item active"
+                id="generalInfoBtn">
+
+                <span class="nav-icon">
+                    ℹ️
+                </span>
+
+                <span>
+                    General Information
+                </span>
+
+            </button>
+
+
+            <!-- PREVENTION -->
+
+            <button
+                type="button"
+                class="nav-item sidebar-info-item active"
+                id="preventionBtn">
+
+                <span class="nav-icon">
+                    🛡️
+                </span>
+
+                <span>
+                    Preventive Measures
+                </span>
+
+            </button>
+
+
+            <!-- PDF BUTTON -->
+
+            <button
+                type="button"
+                class="final-pdf-button "
+                id="downloadpdfButton">
+
+                ↓
+                Download PDF Report
+
+            </button>
+
+
+        </nav>
+
+
+        <!-- SIDEBAR BOTTOM -->
+
+        <div class="sidebar-bottom">
+
+            <div class="leaf-decoration">
+                🌿
+            </div>
+
+            <div class="care-message">
+
+                <span>
+                    ❤️
+                </span>
+
+                <p>
+                    Early Detection.<br>
+                    Better Care.<br>
+                    Healthier You
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         GENERAL INFORMATION FLOATING CARD
+    ====================================================== -->
+
+    <div
+        class="floating-card"
+        id="generalInfoCard">
+
+
+        <button
+            type="button"
+            class="floating-card-close"
+            id="closeGeneralInfo">
+
+            ×
+
+        </button>
+
+
+        <div class="floating-card-icon">
+            ℹ️
+        </div>
+
+
+        <h2>
+            General Information
+        </h2>
+
+
+        <p>
+            Skin cancer occurs when abnormal skin cells
+            grow uncontrollably. Changes in a skin lesion
+            should be monitored carefully.
+        </p>
+
+
+        <h3>
+            Things to observe
+        </h3>
+
+
+        <ul>
+
+            <li>
+                Changes in size or shape
+            </li>
+
+            <li>
+                Changes in colour
+            </li>
+
+            <li>
+                Irregular borders
+            </li>
+
+            <li>
+                Persistent itching or discomfort
+            </li>
+
+            <li>
+                Bleeding or unusual skin changes
+            </li>
+
+        </ul>
+
+
+        <div class="floating-note">
+
+            ⚠️ This AI result is not a medical diagnosis.
+            Please consult a qualified healthcare professional
+            for further evaluation.
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         PREVENTIVE MEASURES FLOATING CARD
+    ====================================================== -->
+
+    <div
+        class="floating-card"
+        id="preventionCard">
+
+
+        <button
+            type="button"
+            class="floating-card-close"
+            id="closePrevention">
+
+            ×
+
+        </button>
+
+
+        <div class="floating-card-icon">
+            🛡️
+        </div>
+
+
+        <h2>
+            Preventive Measures
+        </h2>
+
+
+        <p>
+            Protecting your skin and monitoring skin changes
+            can help maintain good skin health.
+        </p>
+
+
+        <h3>
+            Recommended measures
+        </h3>
+
+
+        <ul>
+
+            <li>
+                Protect your skin from excessive sun exposure
+            </li>
+
+            <li>
+                Use sunscreen as appropriate
+            </li>
+
+            <li>
+                Wear protective clothing in strong sunlight
+            </li>
+
+            <li>
+                Monitor existing skin lesions
+            </li>
+
+            <li>
+                Pay attention to new or unusual changes
+            </li>
+
+            <li>
+                Consult a healthcare professional when needed
+            </li>
+
+        </ul>
+
+
+        <div class="floating-note">
+
+            💡 Regular skin observation and professional
+            evaluation are important.
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         MAIN AREA
+    ====================================================== -->
+
+    <main class="main">
+
+
+        <!-- HEADER -->
+
+        <header class="header">
+
+
+            <!-- MOBILE MENU -->
+
+            <button
+                class="menu-button"
+                id="menuButton">
+
+                ☰
+
+            </button>
+
+
+            <!-- MOBILE LOGO -->
+
+            <div class="mobile-logo">
+
+                🔍 SkinCare <strong>AI</strong>
+
+            </div>
+
+
+            <!-- HEADER NAVIGATION -->
+
+            <div class="header-navigation">
+
+
+                <!-- HOME -->
+
+                <a
+                    href="image.html"
+                    class="top-link">
+
+                    🏠
+
+                    <span>
+                        Home
+                    </span>
+
+                </a>
+
+
+                <!-- USER MENU -->
+
+                <div
+                    class="user-menu"
+                    id="userMenu">
+
+
+                    <div
+                        class="user-trigger"
+                        id="userTrigger">
+
+
+                        <div class="user-avatar">
+                            👤
+                        </div>
+
+
+                        <span id="topUserName">
+                            User
+                        </span>
+
+
+                    </div>
+
+
+                    <!-- USER DROPDOWN -->
+
+                    <div
+                        class="user-dropdown"
+                        id="userDropdown">
+
+
+                        <div class="user-info">
+
+
+                            <div class="dropdown-avatar">
+                                👤
+                            </div>
+
+
+                            <div class="user-details">
+
+                                <strong id="dropdownUserName">
+                                    User
+                                </strong>
+
+                                <span id="dropdownUserEmail">
+                                    user@gmail.com
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="dropdown-divider">
+                        </div>
+
+
+                        <button
+                            class="dropdown-item"
+                            onclick="openProfileSettings()">
+
+                            <span>
+                                ⚙️
+                            </span>
+
+                            <span>
+                                Profile Settings
+                            </span>
+
+                        </button>
+
+
+                        <button
+                            class="dropdown-item"
+                            onclick="changePassword()">
+
+                            <span>
+                                🔒
+                            </span>
+
+                            <span>
+                                Change Password
+                            </span>
+
+                        </button>
+
+
+                        <div class="dropdown-divider">
+                        </div>
+
+
+                        <button
+                            class="dropdown-item logout-item"
+                            onclick="logoutUser()">
+
+                            <span>
+                                🚪
+                            </span>
+
+                            <span>
+                                Logout
+                            </span>
+
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- =====================================================
+             RESULT PAGE
+        ====================================================== -->
+
+        <section class="final-result-page">
+
+
+            <!-- HEADING -->
+
+            <div class="final-result-heading">
+
+
+                <div class="result-heading-text">
+
+                    <h1>
+                        Analysis Result
+                    </h1>
+
+                    <p>
+                        Here are the results from our AI model.
+                    </p>
+
+                </div>
+
+
+                <!-- IMPORTANT -->
+
+                <div class="final-warning-card">
+
+                    <div class="final-warning-title">
+                        ⚠️ Important
+                    </div>
+
+                    <p>
+                        This is NOT a final medical diagnosis.
+                        Please consult a qualified doctor or
+                        dermatologist for proper evaluation
+                        and treatment.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 TOP RESULT AREA
+            ================================================== -->
+
+            <section class="final-result-top">
+
+
+                <!-- UPLOADED IMAGE -->
+
+                <div class="final-upload-card">
+
+
+                    <div class="final-image-container">
+
+                        <img
+                            id="resultImage"
+                            src=""
+                            alt="Uploaded skin image">
+
+                    </div>
+
+
+                    <div class="final-upload-info">
+
+
+                        <div class="final-image-icon">
+                            🖼️
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Uploaded Image
+                            </strong>
+
+                            <p id="imageInfo">
+                                Skin image
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     CENTER COLUMN
+                ================================================== -->
+
+                <div class="final-prediction-column">
+
+
+                    <!-- CLASSIFICATION -->
+
+                    <div class="final-classification-card">
+
+
+                        <div class="final-card-title">
+                            ✔️ Classification
+                        </div>
+
+
+                        <h2 id="classification">
+                            Nevus
+                        </h2>
+
+
+                        <div class="final-confidence">
+
+                            <span>
+                                Confidence
+                            </span>
+
+                            <strong id="confidence">
+                                92%
+                            </strong>
+
+                        </div>
+
+
+                        <div class="final-main-progress">
+
+                            <div
+                                id="mainProgress"
+                                class="final-main-progress-fill"
+                                style="width:92%;">
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- MODEL OUTPUT -->
+
+                    <div class="final-model-card">
+
+
+                        <div class="final-card-title">
+                            📊 Model Output
+                        </div>
+
+
+                        <!-- NEVUS -->
+
+                        <div class="final-prediction-row">
+
+                            <span>
+                                Nevus
+                            </span>
+
+
+                            <div class="final-small-progress">
+
+                                <div
+                                    id="barNevus"
+                                    style="width:92%;">
+
+                                </div>
+
+                            </div>
+
+
+                            <strong id="valueNevus">
+                                92%
+                            </strong>
+
+                        </div>
+
+
+                        <!-- MELANOMA -->
+
+                        <div class="final-prediction-row">
+
+                            <span>
+                                Melanoma
+                            </span>
+
+
+                            <div class="final-small-progress">
+
+                                <div
+                                    id="barMelanoma"
+                                    style="width:5%;">
+
+                                </div>
+
+                            </div>
+
+
+                            <strong id="valueMelanoma">
+                                5%
+                            </strong>
+
+                        </div>
+
+
+                        <!-- BCC -->
+
+                        <div class="final-prediction-row">
+
+                            <span>
+                                BCC
+                            </span>
+
+
+                            <div class="final-small-progress">
+
+                                <div
+                                    id="barBCC"
+                                    style="width:2%;">
+
+                                </div>
+
+                            </div>
+
+
+                            <strong id="valueBCC">
+                                2%
+                            </strong>
+
+                        </div>
+
+
+                        <!-- OTHERS -->
+
+                        <div class="final-prediction-row">
+
+                            <span>
+                                Others
+                            </span>
+
+
+                            <div class="final-small-progress">
+
+                                <div
+                                    id="barOthers"
+                                    style="width:1%;">
+
+                                </div>
+
+                            </div>
+
+
+                            <strong id="valueOthers">
+                                1%
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     RISK INDICATOR
+                ================================================== -->
+
+                <div class="final-risk-card">
+
+
+                    <div class="final-card-title">
+                        🛡️ Model Risk Indicator
+                    </div>
+
+
+                    <div
+                        id="riskBadge"
+                        class="final-risk-badge">
+
+                        🛡️ Low
+
+                    </div>
+
+
+                    <p>
+                        Note: This is the model's prediction
+                        and not a medical diagnosis.
+                    </p>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 LOWER SECTION
+            ================================================== -->
+
+            <section class="final-result-lower">
+
+                <div class="final-lower-left">
+                </div>
+
+                <div class="final-lower-right">
+                </div>
+
+            </section>
+
+
+        </section>
+
+
+    </main>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     CHATBOT
+====================================================== -->
+
+<!-- ================= CHATBOT BUTTON ================= -->
+
+        <button
+            class="chatbot-button"
+            id="chatbotButton"
+            aria-label="Open SkinGuard AI">
+
+            🤖
+
+        </button>
+
+
+
+        <!-- ================= CHAT WINDOW ================= -->
+
+        <div
+            class="chatbot"
+            id="chatbot">
+
+
+            <div class="chat-header">
+
+
+                <div>
+
+
+                    <strong>
+                        🤖 SkinGuard AI
+                    </strong>
+
+
+                    <span>
+                        AI Assistant
+                    </span>
+
+
+                </div>
+
+
+                <button id="closeChat">
+                    ×
+                </button>
+
+
+            </div>
+
+
+
+            <div class="chat-body">
+
+
+                <div class="bot-message">
+
+
+                    Hi! 👋
+
+                    <br><br>
+
+                    I'm SkinGuard AI.
+                    How can I help you?
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="chat-input">
+
+
+                <input
+                    type="text"
+                    placeholder="Ask a question..."
+                    id="chatInput">
+
+
+                <button id="sendMessage">
+
+                    ➤
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+<!-- =====================================================
+     EXISTING PROJECT JAVASCRIPT
+====================================================== -->
+
+<script src="script.js"></script>
+
+
+
+<!-- =====================================================
+     LOAD IMAGE + FLOATING CARDS
+====================================================== -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        /* =========================================
+           LOAD STORED IMAGE
+        ========================================= */
+
+        const storedImage =
+            localStorage.getItem(
+                "skinImage"
+            );
+
+
+        const resultImage =
+            document.getElementById(
+                "resultImage"
+            );
+
+
+        if (
+            storedImage &&
+            resultImage
+        ) {
+
+            resultImage.src =
+                storedImage;
+
+        }
+
+
+
+        /* =========================================
+           GENERAL / PREVENTION BUTTONS
+        ========================================= */
+
+        const generalBtn =
+            document.getElementById(
+                "generalInfoBtn"
+            );
+
+
+        const preventionBtn =
+            document.getElementById(
+                "preventionBtn"
+            );
+
+
+        const generalCard =
+            document.getElementById(
+                "generalInfoCard"
+            );
+
+
+        const preventionCard =
+            document.getElementById(
+                "preventionCard"
+            );
+
+
+        const closeGeneral =
+            document.getElementById(
+                "closeGeneralInfo"
+            );
+
+
+        const closePrevention =
+            document.getElementById(
+                "closePrevention"
+            );
+
+
+
+        /* GENERAL */
+
+        if (
+            generalBtn &&
+            generalCard
+        ) {
+
+            generalBtn.addEventListener(
+                "click",
+                function () {
+
+                    preventionCard.classList.remove(
+                        "show"
+                    );
+
+                    generalCard.classList.toggle(
+                        "show"
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /* PREVENTION */
+
+        if (
+            preventionBtn &&
+            preventionCard
+        ) {
+
+            preventionBtn.addEventListener(
+                "click",
+                function () {
+
+                    generalCard.classList.remove(
+                        "show"
+                    );
+
+                    preventionCard.classList.toggle(
+                        "show"
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /* CLOSE GENERAL */
+
+        if (closeGeneral) {
+
+            closeGeneral.addEventListener(
+                "click",
+                function () {
+
+                    generalCard.classList.remove(
+                        "show"
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /* CLOSE PREVENTION */
+
+        if (closePrevention) {
+
+            closePrevention.addEventListener(
+                "click",
+                function () {
+
+                    preventionCard.classList.remove(
+                        "show"
+                    );
+
+                }
+            );
+
+        }
+
+
+    }
+);
+
+</script>
+
+
+
+<!-- =====================================================
+     PDF GENERATION
+====================================================== -->
+
+<script>
+
+
+/* =====================================================
+   GET TEXT FROM RESULT PAGE
+===================================================== */
+
+function getPDFText(
+    id,
+    defaultValue = "N/A"
+) {
+
+    const element =
+        document.getElementById(id);
+
+
+    if (!element) {
+
+        return defaultValue;
+
+    }
+
+
+    return element.innerText.trim();
+
+}
+
+
+
+/* =====================================================
+   CONVERT STORED IMAGE TO PNG
+===================================================== */
+
+function convertImageForPDF(
+    imageSource
+) {
+
+    return new Promise(
+        function (resolve) {
+
+
+            if (!imageSource) {
+
+                resolve(null);
+
+                return;
+
+            }
+
+
+            const img =
+                new Image();
+
+
+            img.onload =
+                function () {
+
+
+                    const canvas =
+                        document.createElement(
+                            "canvas"
+                        );
+
+
+                    const maxSize =
+                        700;
+
+
+                    let width =
+                        img.naturalWidth ||
+                        img.width;
+
+
+                    let height =
+                        img.naturalHeight ||
+                        img.height;
+
+
+                    if (
+                        !width ||
+                        !height
+                    ) {
+
+                        resolve(null);
+
+                        return;
+
+                    }
+
+
+                    if (
+                        width >
+                        maxSize
+                    ) {
+
+                        const ratio =
+                            maxSize /
+                            width;
+
+
+                        width =
+                            maxSize;
+
+
+                        height =
+                            height *
+                            ratio;
+
+                    }
+
+
+                    if (
+                        height >
+                        maxSize
+                    ) {
+
+                        const ratio =
+                            maxSize /
+                            height;
+
+
+                        height =
+                            maxSize;
+
+
+                        width =
+                            width *
+                            ratio;
+
+                    }
+
+
+                    canvas.width =
+                        Math.round(
+                            width
+                        );
+
+
+                    canvas.height =
+                        Math.round(
+                            height
+                        );
+
+
+                    const ctx =
+                        canvas.getContext(
+                            "2d"
+                        );
+
+
+                    ctx.drawImage(
+                        img,
+                        0,
+                        0,
+                        canvas.width,
+                        canvas.height
+                    );
+
+
+                    resolve(
+                        canvas.toDataURL(
+                            "image/png"
+                        )
+                    );
+
+
+                };
+
+
+            img.onerror =
+                function () {
+
+                    resolve(null);
+
+                };
+
+
+            img.src =
+                imageSource;
+
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   DRAW PDF PROGRESS BAR
+===================================================== */
+
+function drawPDFProgressBar(
+    pdf,
+    x,
+    y,
+    width,
+    height,
+    percentage
+) {
+
+
+    let value =
+        parseFloat(
+            percentage
+        );
+
+
+    if (isNaN(value)) {
+
+        value = 0;
+
+    }
+
+
+    value =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                value
+            )
+        );
+
+
+    /* Background */
+
+    pdf.setFillColor(
+        224,
+        238,
+        245
+    );
+
+
+    pdf.roundedRect(
+        x,
+        y,
+        width,
+        height,
+        2,
+        2,
+        "F"
+    );
+
+
+    /* Filled */
+
+    const filledWidth =
+        width *
+        value /
+        100;
+
+
+    if (
+        filledWidth > 0
+    ) {
+
+        pdf.setFillColor(
+            55,
+            155,
+            190
+        );
+
+
+        pdf.roundedRect(
+            x,
+            y,
+            filledWidth,
+            height,
+            2,
+            2,
+            "F"
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   PDF BUTTON
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        const pdfButton =
+            document.getElementById(
+                "downloadpdfButton"
+            );
+
+
+        if (!pdfButton) {
+
+            return;
+
+        }
+
+
+        pdfButton.addEventListener(
+            "click",
+            function () {
+
+                generateDermaScanPDF();
+
+            }
+        );
+
+
+    }
+);
+
+
+
+/* =====================================================
+   CREATE PDF
+===================================================== */
+
+async function generateDermaScanPDF() {
+
+
+    const button =
+        document.getElementById(
+            "downloadpdfButton"
+        );
+
+
+    try {
+
+
+        /* =========================================
+           BUTTON STATE
+        ========================================= */
+
+        if (button) {
+
+            button.disabled =
+                true;
+
+
+            button.innerText =
+                "Generating PDF...";
+
+        }
+
+
+
+        /* =========================================
+           CHECK jsPDF
+        ========================================= */
+
+        if (
+            !window.jspdf ||
+            !window.jspdf.jsPDF
+        ) {
+
+            alert(
+                "PDF system load aagala. Internet connection check pannunga."
+            );
+
+            return;
+
+        }
+
+
+        const {
+            jsPDF
+        } =
+            window.jspdf;
+
+
+
+        /* =========================================
+           CREATE PDF
+        ========================================= */
+
+        const pdf =
+            new jsPDF(
+                "p",
+                "mm",
+                "a4"
+            );
+
+
+        const pageWidth =
+            210;
+
+
+        const pageHeight =
+            297;
+
+
+
+        /* =========================================
+           USER DATA
+        ========================================= */
+
+        let userName =
+            "User";
+
+
+        let userEmail =
+            "user@gmail.com";
+
+
+        const savedUser =
+            localStorage.getItem(
+                "userData"
+            );
+
+
+        if (savedUser) {
+
+            try {
+
+                const user =
+                    JSON.parse(
+                        savedUser
+                    );
+
+
+                userName =
+                    user.fullName ||
+                    user.name ||
+                    "User";
+
+
+                userEmail =
+                    user.email ||
+                    "user@gmail.com";
+
+            }
+
+            catch (error) {
+
+                console.log(
+                    error
+                );
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           DATE
+        ========================================= */
+
+        const currentDate =
+            new Date();
+
+
+        const reportDate =
+            currentDate.toLocaleDateString(
+                "en-IN",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                }
+            );
+
+
+        const reportTime =
+            currentDate.toLocaleTimeString(
+                "en-IN",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                }
+            );
+
+
+
+        /* =========================================
+           RESULT DATA
+        ========================================= */
+
+        const classification =
+            getPDFText(
+                "classification",
+                "Unknown"
+            );
+
+
+        const confidence =
+            getPDFText(
+                "confidence",
+                "0%"
+            );
+
+
+        const nevus =
+            getPDFText(
+                "valueNevus",
+                "0%"
+            );
+
+
+        const melanoma =
+            getPDFText(
+                "valueMelanoma",
+                "0%"
+            );
+
+
+        const bcc =
+            getPDFText(
+                "valueBCC",
+                "0%"
+            );
+
+
+        const others =
+            getPDFText(
+                "valueOthers",
+                "0%"
+            );
+
+
+        let risk =
+            getPDFText(
+                "riskBadge",
+                "Unknown"
+            );
+
+
+        risk =
+            risk
+                .replace(
+                    "🛡️",
+                    ""
+                )
+                .trim();
+
+
+
+        /* =================================================
+           PAGE 1
+        ================================================= */
+
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        pdf.setFillColor(
+            230,
+            246,
+            252
+        );
+
+
+        pdf.rect(
+            0,
+            0,
+            pageWidth,
+            38,
+            "F"
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+
+        pdf.setFontSize(
+            22
+        );
+
+
+        pdf.setTextColor(
+            20,
+            90,
+            125
+        );
+
+
+        pdf.text(
+            "DermaScan AI",
+            18,
+            18
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "normal"
+        );
+
+
+        pdf.setFontSize(
+            9
+        );
+
+
+        pdf.setTextColor(
+            75,
+            95,
+            105
+        );
+
+
+        pdf.text(
+            "AI-Based Skin Analysis System",
+            18,
+            26
+        );
+
+
+        pdf.text(
+            reportDate +
+            " | " +
+            reportTime,
+            143,
+            22
+        );
+
+
+
+        /* =========================================
+           REPORT TITLE
+        ========================================= */
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+
+        pdf.setFontSize(
+            21
+        );
+
+
+        pdf.setTextColor(
+            20,
+            80,
+            115
+        );
+
+
+        pdf.text(
+            "Skin Analysis Report",
+            18,
+            52
+        );
+
+
+        pdf.setDrawColor(
+            40,
+            150,
+            185
+        );
+
+
+        pdf.line(
+            18,
+            57,
+            70,
+            57
+        );
+
+
+
+        /* =========================================
+           USER INFORMATION
+        ========================================= */
+
+        pdf.setFillColor(
+            245,
+            250,
+            253
+        );
+
+
+        pdf.roundedRect(
+            18,
+            65,
+            92,
+            48,
+            5,
+            5,
+            "F"
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+
+        pdf.setFontSize(
+            12
+        );
+
+
+        pdf.setTextColor(
+            20,
+            85,
+            120
+        );
+
+
+        pdf.text(
+            "User Information",
+            25,
+            76
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "normal"
+        );
+
+
+        pdf.setFontSize(
+            9
+        );
+
+
+        pdf.setTextColor(
+            65,
+            75,
+            85
+        );
+
+
+        pdf.text(
+            "Name:",
+            25,
+            87
+        );
+
+
+        pdf.text(
+            userName,
+            48,
+            87
+        );
+
+
+        pdf.text(
+            "Email:",
+            25,
+            96
+        );
+
+
+        pdf.text(
+            userEmail,
+            48,
+            96
+        );
+
+
+        pdf.text(
+            "Date:",
+            25,
+            105
+        );
+
+
+        pdf.text(
+            reportDate,
+            48,
+            105
+        );
+
+
+
+        /* =========================================
+           UPLOADED IMAGE
+        ========================================= */
+
+        pdf.setFillColor(
+            245,
+            250,
+            253
+        );
+
+
+        pdf.roundedRect(
+            120,
+            65,
+            72,
+            48,
+            5,
+            5,
+            "F"
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+
+        pdf.setFontSize(
+            11
+        );
+
+
+        pdf.setTextColor(
+            20,
+            85,
+            120
+        );
+
+
+        pdf.text(
+            "Uploaded Image",
+            128,
+            75
+        );
+
+
+        const storedImage =
+            localStorage.getItem(
+                "skinImage"
+            );
+
+
+        if (storedImage) {
+
+            try {
+
+                const convertedImage =
+                    await convertImageForPDF(
+                        storedImage
+                    );
+
+
+                if (
+                    convertedImage
+                ) {
+
+                    pdf.addImage(
+                        convertedImage,
+                        "PNG",
+                        132,
+                        78,
+                        48,
+                        30
+                    );
+
+                }
+
+            }
+
+            catch (error) {
+
+                console.log(
+                    "Image error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           CLASSIFICATION CARD
+        ========================================= */
+
+        pdf.setFillColor(
+            237,
+            250,
+            244
+        );
+
+
+        pdf.roundedRect(
+            18,
+            122,
+            92,
+            55,
+            5,
+            5,
+            "F"
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+
+        pdf.setFontSize(
+            12
+        );
+
+
+        pdf.setTextColor(
+            20,
+            100,
+            85
+        );
+
+
+        pdf.text(
+            "Classification",
+            25,
+            134
+        );
+
+
+        pdf.setFontSize(
+            20
+        );
+
+
+        pdf.text(
+            classification,
+            25,
+            148
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "normal"
+        );
+
+
+        pdf.setFontSize(
+            10
+        );
+
+
+        pdf.text(
+            "Confidence",
+            25,
+            159
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+
+        pdf.text(
+            confidence,
+            82,
+            159
+        );
+
+
+        drawPDFProgressBar(
+            pdf,
+            25,
+            164,
+            78,
+            6,
+            confidence
+        );
+
+
+
+        /* =========================================
+           RISK INDICATOR
+        ========================================= */
+
+        pdf.setFillColor(
+            240,
+            248,
+            255
+        );
+
+
+        pdf.roundedRect(
+            120,
+            122,
+            72,
+            55,
+            5,
+            5,
+            "F"
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+
+        pdf.setFontSize(
+            12
+        );
+
+
+        pdf.setTextColor(
+            20,
+            85,
+            120
+        );
+
+
+        pdf.text(
+            "Risk Indicator",
+            128,
+            134
+        );
+
+
+        pdf.setFontSize(
+            18
+        );
+
+
+        pdf.setTextColor(
+            35,
+            145,
+            105
+        );
+
+
+        pdf.text(
+            risk,
+            128,
+            151
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "normal"
+        );
+
+
+        pdf.setFontSize(
+            8
+        );
+
+
+        pdf.setTextColor(
+            75,
+            85,
+            90
+        );
+
+
+        const riskDescription =
+            pdf.splitTextToSize(
+                "AI model prediction only. Not a medical diagnosis.",
+                55
+            );
+
+
+        pdf.text(
+            riskDescription,
+            128,
+            161
+        );
+
+
+
+        /* =========================================
+           MODEL OUTPUT CARD
+        ========================================= */
+
+        pdf.setFillColor(
+            248,
+            252,
+            255
+        );
+
+
+        pdf.roundedRect(
+            18,
+            187,
+            174,
+            76,
+            5,
+            5,
+            "F"
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+
+        pdf.setFontSize(
+            13
+        );
+
+
+        pdf.setTextColor(
+            20,
+            85,
+            120
+        );
+
+
+        pdf.text(
+            "Model Output",
+            25,
+            199
+        );
+
+
+        /* Table heading */
+
+        pdf.setFillColor(
+            225,
+            242,
+            250
+        );
+
+
+        pdf.roundedRect(
+            25,
+            204,
+            160,
+            10,
+            2,
+            2,
+            "F"
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+
+        pdf.setFontSize(
+            8
+        );
+
+
+        pdf.setTextColor(
+            55,
+            75,
+            85
+        );
+
+
+        pdf.text(
+            "Classification",
+            28,
+            211
+        );
+
+
+        pdf.text(
+            "Probability",
+            166,
+            211
+        );
+
+
+        /* Model rows */
+
+        const modelRows = [
+
+            [
+                "Nevus",
+                nevus
+            ],
+
+            [
+                "Melanoma",
+                melanoma
+            ],
+
+            [
+                "BCC",
+                bcc
+            ],
+
+            [
+                "Others",
+                others
+            ]
+
+        ];
+
+
+        let modelY =
+            224;
+
+
+        modelRows.forEach(
+            function (row) {
+
+
+                const percentage =
+                    parseFloat(
+                        row[1]
+                    ) || 0;
+
+
+                pdf.setFont(
+                    "helvetica",
+                    "normal"
+                );
+
+
+                pdf.setFontSize(
+                    8
+                );
+
+
+                pdf.setTextColor(
+                    55,
+                    70,
+                    80
+                );
+
+
+                pdf.text(
+                    row[0],
+                    28,
+                    modelY
+                );
+
+
+                drawPDFProgressBar(
+                    pdf,
+                    75,
+                    modelY - 5,
+                    75,
+                    5,
+                    percentage
+                );
+
+
+                pdf.setFont(
+                    "helvetica",
+                    "bold"
+                );
+
+
+                pdf.text(
+                    row[1],
+                    166,
+                    modelY
+                );
+
+
+                modelY += 9;
+
+            }
+        );
+
+
+
+        /* =========================================
+           IMPORTANT NOTE
+        ========================================= */
+
+       // IMPORTANT NOTE
+pdf.setFillColor(255, 248, 232);
+pdf.setDrawColor(240, 223, 181);
+pdf.roundedRect(15, 248, 180, 30, 3, 3, "FD");
+
+pdf.setFont("helvetica", "bold");
+pdf.setFontSize(11);
+pdf.setTextColor(184, 121, 0);
+pdf.text("IMPORTANT", 20, 257);
+
+pdf.setFont("helvetica", "normal");
+pdf.setFontSize(8.5);
+pdf.setTextColor(90, 90, 90);
+
+const importantText =
+    "This AI result is not a final medical diagnosis. Please consult a qualified doctor or dermatologist for proper evaluation and treatment.";
+
+const importantLines = pdf.splitTextToSize(importantText, 155);
+
+// Text box-kulla automatically wrap aagum
+pdf.text(importantLines, 20, 264, {
+    maxWidth: 155,
+    lineHeightFactor: 1.35
+});
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        pdf.setDrawColor(
+            210,
+            225,
+            232
+        );
+
+
+        pdf.line(
+            18,
+            290,
+            192,
+            290
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "normal"
+        );
+
+
+        pdf.setFontSize(
+            7
+        );
+
+
+        pdf.setTextColor(
+            110,
+            120,
+            125
+        );
+
+
+        pdf.text(
+            "DermaScan AI | Skin Analysis Report",
+            18,
+            294
+        );
+
+
+        pdf.text(
+            "Page 1",
+            175,
+            294
+        );
+
+
+
+       
+        /* =========================================
+           DOWNLOAD
+        ========================================= */
+
+        const safeUserName =
+            userName.replace(
+                /[^a-zA-Z0-9]/g,
+                "_"
+            );
+
+
+        pdf.save(
+            "DermaScan_AI_Report_" +
+            safeUserName +
+            ".pdf"
+        );
+
+
+    }
+
+    catch (error) {
+
+
+        console.error(
+            "PDF ERROR:",
+            error
+        );
+
+
+        alert(
+            "PDF create panna error vandhurukku."
+        );
+
+
+    }
+
+
+    finally {
+
+
+        if (button) {
+
+            button.disabled =
+                false;
+
+
+            button.innerText =
+                "↓ Download PDF Report";
+
+        }
+
+
+    }
+
+}
+
+
+</script>
+<!-- =========================================================
+     FINAL PDF DOWNLOAD
+     ========================================================= -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+
+
+
+function createFinalPDF() {
+
+    try {
+
+        /* =====================================================
+           LOAD jsPDF
+        ===================================================== */
+
+        if (!window.jspdf) {
+
+            alert("PDF system loading. Please try again.");
+
+            return;
+
+        }
+
+        const { jsPDF } = window.jspdf;
+
+        const pdf =
+            new jsPDF("p", "mm", "a4");
+
+
+        /* =====================================================
+           PAGE SETTINGS
+        ===================================================== */
+
+        const pageWidth = 210;
+        const pageHeight = 297;
+
+        const margin = 15;
+
+        const contentWidth =
+            pageWidth - (margin * 2);
+
+
+        /* =====================================================
+           USER DATA
+        ===================================================== */
+
+        let userName = "User";
+        let userEmail = "user@gmail.com";
+
+        const savedUser =
+            localStorage.getItem("userData");
+
+        if (savedUser) {
+
+            try {
+
+                const user =
+                    JSON.parse(savedUser);
+
+                userName =
+                    user.fullName ||
+                    user.name ||
+                    "User";
+
+                userEmail =
+                    user.email ||
+                    "user@gmail.com";
+
+            }
+
+            catch (error) {
+
+                console.log(
+                    "User data error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
+           DATE & TIME
+           ===================================================== */
+
+        const now = new Date();
+
+        const date =
+            now.toLocaleDateString(
+                "en-IN",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                }
+            );
+
+        const time =
+            now.toLocaleTimeString(
+                "en-IN",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                }
+            );
+
+
+        /* =====================================================
+           GET RESULT DATA
+           ===================================================== */
+
+        function getText(id, fallback) {
+
+            const element =
+                document.getElementById(id);
+
+            if (!element) {
+
+                return fallback;
+
+            }
+
+            const value =
+                element.innerText.trim();
+
+            return value || fallback;
+
+        }
+
+
+        const classification =
+            getText(
+                "classification",
+                "Unknown"
+            );
+
+
+        const confidence =
+            getText(
+                "confidence",
+                "0%"
+            );
+
+
+        const nevus =
+            getText(
+                "valueNevus",
+                "0%"
+            );
+
+
+        const melanoma =
+            getText(
+                "valueMelanoma",
+                "0%"
+            );
+
+
+        const bcc =
+            getText(
+                "valueBCC",
+                "0%"
+            );
+
+
+        const others =
+            getText(
+                "valueOthers",
+                "0%"
+            );
+
+
+        let risk =
+            getText(
+                "riskBadge",
+                "Unknown"
+            );
+
+
+        /* Remove emoji from risk */
+
+        risk =
+            risk
+                .replace(/🛡️/g, "")
+                .trim();
+
+
+        if (!risk) {
+
+            risk = "Unknown";
+
+        }
+
+
+        /* =====================================================
+           HEADER
+           ===================================================== */
+
+        pdf.setFillColor(
+            235,
+            247,
+            255
+        );
+
+        pdf.rect(
+            0,
+            0,
+            pageWidth,
+            32,
+            "F"
+        );
+
+
+        /* Logo / Name */
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+        pdf.setFontSize(20);
+
+        pdf.setTextColor(
+            20,
+            75,
+            115
+        );
+
+        pdf.text(
+            "DermaScan AI",
+            margin,
+            14
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "normal"
+        );
+
+        pdf.setFontSize(8);
+
+        pdf.setTextColor(
+            80,
+            100,
+            115
+        );
+
+        pdf.text(
+            "AI-Based Skin Analysis System",
+            margin,
+            21
+        );
+
+
+        /* Date */
+
+        pdf.setFontSize(8);
+
+        pdf.setTextColor(
+            80,
+            95,
+            105
+        );
+
+        pdf.text(
+            date + " | " + time,
+            160,
+            16
+        );
+
+
+        /* =====================================================
+           MAIN TITLE
+           ===================================================== */
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+        pdf.setFontSize(20);
+
+        pdf.setTextColor(
+            20,
+            70,
+            110
+        );
+
+        pdf.text(
+            "Skin Analysis Report",
+            margin,
+            46
+        );
+
+
+        pdf.setDrawColor(
+            30,
+            145,
+            190
+        );
+
+        pdf.setLineWidth(0.7);
+
+        pdf.line(
+            margin,
+            51,
+            63,
+            51
+        );
+
+
+        /* =====================================================
+           USER INFORMATION + IMAGE
+           ===================================================== */
+
+        const topY = 60;
+
+        const topHeight = 48;
+
+        const leftWidth = 105;
+
+        const rightX = 125;
+
+        const rightWidth = 70;
+
+
+        /* USER BOX */
+
+        pdf.setFillColor(
+            240,
+            248,
+            255
+        );
+
+        pdf.roundedRect(
+            margin,
+            topY,
+            leftWidth,
+            topHeight,
+            4,
+            4,
+            "F"
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+        pdf.setFontSize(11);
+
+        pdf.setTextColor(
+            20,
+            80,
+            120
+        );
+
+        pdf.text(
+            "User Information",
+            margin + 7,
+            topY + 11
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "normal"
+        );
+
+        pdf.setFontSize(8.5);
+
+        pdf.setTextColor(
+            70,
+            80,
+            90
+        );
+
+
+        pdf.text(
+            "Name",
+            margin + 7,
+            topY + 23
+        );
+
+        pdf.text(
+            userName,
+            margin + 32,
+            topY + 23
+        );
+
+
+        pdf.text(
+            "Email",
+            margin + 7,
+            topY + 32
+        );
+
+        pdf.text(
+            userEmail,
+            margin + 32,
+            topY + 32
+        );
+
+
+        pdf.text(
+            "Date",
+            margin + 7,
+            topY + 41
+        );
+
+        pdf.text(
+            date,
+            margin + 32,
+            topY + 41
+        );
+
+
+        /* =====================================================
+           IMAGE BOX
+           ===================================================== */
+
+        pdf.setFillColor(
+            240,
+            248,
+            255
+        );
+
+        pdf.roundedRect(
+            rightX,
+            topY,
+            rightWidth,
+            topHeight,
+            4,
+            4,
+            "F"
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+        pdf.setFontSize(10);
+
+        pdf.setTextColor(
+            20,
+            80,
+            120
+        );
+
+        pdf.text(
+            "Uploaded Image",
+            rightX + 5,
+            topY + 10
+        );
+
+
+        const skinImage =
+            localStorage.getItem(
+                "skinImage"
+            );
+
+
+        if (skinImage) {
+
+            try {
+
+                let imageFormat = "JPEG";
+
+                if (
+                    skinImage
+                        .toLowerCase()
+                        .includes("image/png")
+                ) {
+
+                    imageFormat = "PNG";
+
+                }
+
+                pdf.addImage(
+                    skinImage,
+                    imageFormat,
+                    rightX + 8,
+                    topY + 14,
+                    54,
+                    29,
+                    undefined,
+                    "MEDIUM"
+                );
+
+            }
+
+            catch (error) {
+
+                console.log(
+                    "Image error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
+           CLASSIFICATION + RISK
+           ===================================================== */
+
+        const resultY = 116;
+
+        const resultHeight = 47;
+
+        const resultLeftWidth = 105;
+
+        const resultRightX = 125;
+
+        const resultRightWidth = 70;
+
+
+        /* CLASSIFICATION BOX */
+
+        pdf.setFillColor(
+            235,
+            250,
+            243
+        );
+
+        pdf.roundedRect(
+            margin,
+            resultY,
+            resultLeftWidth,
+            resultHeight,
+            4,
+            4,
+            "F"
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+        pdf.setFontSize(11);
+
+        pdf.setTextColor(
+            20,
+            95,
+            85
+        );
+
+        pdf.text(
+            "Classification",
+            margin + 7,
+            resultY + 12
+        );
+
+
+        pdf.setFontSize(17);
+
+        pdf.setTextColor(
+            25,
+            55,
+            65
+        );
+
+
+        /* Classification wrap */
+
+        const classificationLines =
+            pdf.splitTextToSize(
+                classification,
+                85
+            );
+
+
+        pdf.text(
+            classificationLines,
+            margin + 7,
+            resultY + 24,
+            {
+                lineHeightFactor: 1.2
+            }
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "normal"
+        );
+
+        pdf.setFontSize(8.5);
+
+        pdf.setTextColor(
+            75,
+            85,
+            90
+        );
+
+        pdf.text(
+            "Confidence",
+            margin + 7,
+            resultY + 37
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+        pdf.setFontSize(9);
+
+        pdf.text(
+            confidence,
+            margin + 82,
+            resultY + 37
+        );
+
+
+        /* CONFIDENCE BAR */
+
+        pdf.setFillColor(
+            220,
+            235,
+            242
+        );
+
+        pdf.roundedRect(
+            margin + 7,
+            resultY + 40,
+            91,
+            3.5,
+            2,
+            2,
+            "F"
+        );
+
+
+        let confidenceNumber =
+            parseFloat(
+                confidence
+                    .replace("%", "")
+            );
+
+
+        if (
+            isNaN(confidenceNumber)
+        ) {
+
+            confidenceNumber = 0;
+
+        }
+
+
+        confidenceNumber =
+            Math.max(
+                0,
+                Math.min(
+                    100,
+                    confidenceNumber
+                )
+            );
+
+
+        if (confidenceNumber > 0) {
+
+            pdf.setFillColor(
+                55,
+                170,
+                135
+            );
+
+            pdf.roundedRect(
+                margin + 7,
+                resultY + 40,
+                91 * confidenceNumber / 100,
+                3.5,
+                2,
+                2,
+                "F"
+            );
+
+        }
+
+
+        /* =====================================================
+           RISK BOX
+           ===================================================== */
+
+        pdf.setFillColor(
+            240,
+            248,
+            255
+        );
+
+        pdf.roundedRect(
+            resultRightX,
+            resultY,
+            resultRightWidth,
+            resultHeight,
+            4,
+            4,
+            "F"
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+        pdf.setFontSize(10);
+
+        pdf.setTextColor(
+            20,
+            80,
+            120
+        );
+
+        pdf.text(
+            "Risk Indicator",
+            resultRightX + 7,
+            resultY + 12
+        );
+
+
+        /* ==========================================
+   RISK INDICATOR - FIXED ALIGNMENT
+========================================== */
+
+pdf.setFillColor(240, 248, 255);
+
+pdf.roundedRect(
+    135,
+    167,
+    60,
+    78,
+    4,
+    4,
+    "F"
+);
+
+
+/* TITLE */
+
+pdf.setFont("helvetica", "bold");
+pdf.setFontSize(12);
+pdf.setTextColor(15, 80, 125);
+
+pdf.text(
+    "Risk Indicator",
+    141,
+    180
+);
+
+
+/* RISK VALUE */
+
+pdf.setFont("helvetica", "bold");
+pdf.setFontSize(13);
+pdf.setTextColor(30, 120, 90);
+
+
+/*
+   Get risk text
+*/
+let riskDisplay = risk
+    .replace("🛡️", "")
+    .trim();
+
+
+/*
+   Prevent very long text from
+   going outside the box
+*/
+const riskLines = pdf.splitTextToSize(
+    riskDisplay,
+    48
+);
+
+
+/*
+   Center each line inside box
+*/
+let riskY = 197;
+
+riskLines.forEach(function(line) {
+
+    const textWidth =
+        pdf.getTextWidth(line);
+
+    const centerX =
+        165 - (textWidth / 2);
+
+    pdf.text(
+        line,
+        centerX,
+        riskY
+    );
+
+    riskY += 8;
+
+});
+
+
+/* SMALL NOTE */
+
+pdf.setFont("helvetica", "normal");
+pdf.setFontSize(8);
+pdf.setTextColor(65, 80, 90);
+
+const riskNote =
+    "AI model prediction only. Not a medical diagnosis.";
+
+const riskNoteLines =
+    pdf.splitTextToSize(
+        riskNote,
+        48
+    );
+
+pdf.text(
+    riskNoteLines,
+    141,
+    218
+);
+let riskDisplay = risk
+    .replace("🛡️", "")
+    .trim();
+
+if (
+    riskDisplay.toLowerCase().includes("low")
+) {
+    riskDisplay = "Low";
+}
+else if (
+    riskDisplay.toLowerCase().includes("moderate")
+) {
+    riskDisplay = "Moderate";
+}
+else if (
+    riskDisplay.toLowerCase().includes("high")
+) {
+    riskDisplay = "High";
+}
+        /* =====================================================
+           MODEL OUTPUT
+           ===================================================== */
+
+        const modelY = 173;
+
+        const modelHeight = 66;
+
+
+        pdf.setFillColor(
+            248,
+            252,
+            255
+        );
+
+        pdf.roundedRect(
+            margin,
+            modelY,
+            contentWidth,
+            modelHeight,
+            4,
+            4,
+            "F"
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+        pdf.setFontSize(12);
+
+        pdf.setTextColor(
+            20,
+            80,
+            120
+        );
+
+        pdf.text(
+            "Model Output",
+            margin + 7,
+            modelY + 12
+        );
+
+
+        /* TABLE HEADER */
+
+        pdf.setFillColor(
+            225,
+            242,
+            252
+        );
+
+        pdf.roundedRect(
+            margin + 7,
+            modelY + 17,
+            contentWidth - 14,
+            8,
+            2,
+            2,
+            "F"
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+        pdf.setFontSize(7.5);
+
+        pdf.setTextColor(
+            55,
+            75,
+            85
+        );
+
+
+        pdf.text(
+            "Classification",
+            margin + 10,
+            modelY + 22
+        );
+
+
+        pdf.text(
+            "Probability",
+            173,
+            modelY + 22
+        );
+
+
+        /* =====================================================
+           MODEL ROW FUNCTION
+           ===================================================== */
+
+        function drawModelRow(
+            label,
+            value,
+            y
+        ) {
+
+            let number =
+                parseFloat(
+                    value.replace("%", "")
+                );
+
+
+            if (isNaN(number)) {
+
+                number = 0;
+
+            }
+
+
+            number =
+                Math.max(
+                    0,
+                    Math.min(
+                        100,
+                        number
+                    )
+                );
+
+
+            /* Label */
+
+            pdf.setFont(
+                "helvetica",
+                "normal"
+            );
+
+            pdf.setFontSize(8);
+
+            pdf.setTextColor(
+                65,
+                75,
+                80
+            );
+
+            pdf.text(
+                label,
+                margin + 10,
+                y
+            );
+
+
+            /* Background bar */
+
+            pdf.setFillColor(
+                225,
+                237,
+                242
+            );
+
+            pdf.roundedRect(
+                55,
+                y - 3.5,
+                75,
+                4.5,
+                2,
+                2,
+                "F"
+            );
+
+
+            /* Actual bar */
+
+            if (number > 0) {
+
+                pdf.setFillColor(
+                    80,
+                    165,
+                    195
+                );
+
+                pdf.roundedRect(
+                    55,
+                    y - 3.5,
+                    Math.max(
+                        2,
+                        75 * number / 100
+                    ),
+                    4.5,
+                    2,
+                    2,
+                    "F"
+                );
+
+            }
+
+
+            /* Percentage */
+
+            pdf.setFont(
+                "helvetica",
+                "bold"
+            );
+
+            pdf.setFontSize(8);
+
+            pdf.setTextColor(
+                55,
+                70,
+                80
+            );
+
+            pdf.text(
+                value,
+                175,
+                y
+            );
+
+        }
+
+
+        drawModelRow(
+            "Nevus",
+            nevus,
+            modelY + 34
+        );
+
+
+        drawModelRow(
+            "Melanoma",
+            melanoma,
+            modelY + 44
+        );
+
+
+        drawModelRow(
+            "BCC",
+            bcc,
+            modelY + 54
+        );
+
+
+        drawModelRow(
+            "Others",
+            others,
+            modelY + 64
+        );
+
+
+        /* =====================================================
+           IMPORTANT NOTE
+           ===================================================== */
+
+        const importantY = 245;
+
+        const importantHeight = 35;
+
+
+        pdf.setFillColor(
+            255,
+            248,
+            232
+        );
+
+        pdf.setDrawColor(
+            240,
+            223,
+            181
+        );
+
+        pdf.roundedRect(
+            margin,
+            importantY,
+            contentWidth,
+            importantHeight,
+            4,
+            4,
+            "FD"
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+        pdf.setFontSize(10);
+
+        pdf.setTextColor(
+            185,
+            120,
+            0
+        );
+
+        pdf.text(
+            "IMPORTANT",
+            margin + 7,
+            importantY + 10
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "normal"
+        );
+
+        pdf.setFontSize(8.5);
+
+        pdf.setTextColor(
+            75,
+            75,
+            75
+        );
+
+
+        const importantText =
+            "This AI result is not a final medical diagnosis. Please consult a qualified doctor or dermatologist for proper evaluation and treatment.";
+
+
+        const importantLines =
+            pdf.splitTextToSize(
+                importantText,
+                160
+            );
+
+
+        pdf.text(
+            importantLines,
+            margin + 7,
+            importantY + 19,
+            {
+                lineHeightFactor: 1.35
+            }
+        );
+
+
+        /* =====================================================
+           FOOTER
+           ===================================================== */
+
+        pdf.setDrawColor(
+            200,
+            220,
+            230
+        );
+
+        pdf.setLineWidth(0.3);
+
+        pdf.line(
+            margin,
+            285,
+            pageWidth - margin,
+            285
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "normal"
+        );
+
+        pdf.setFontSize(7);
+
+        pdf.setTextColor(
+            100,
+            115,
+            125
+        );
+
+
+        pdf.text(
+            "DermaScan AI | Skin Analysis Report",
+            margin,
+            291
+        );
+
+
+        pdf.text(
+            "Page 1 of 1",
+            175,
+            291
+        );
+
+
+        /* =====================================================
+           DOWNLOAD
+           ===================================================== */
+
+        const safeName =
+            userName
+                .replace(
+                    /[^a-zA-Z0-9]/g,
+                    "_"
+                );
+
+
+        pdf.save(
+            "DermaScan_AI_Report_" +
+            safeName +
+            ".pdf"
+        );
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "PDF ERROR:",
+            error
+        );
+
+        alert(
+            "PDF create panna mudiyala. Please try again."
+        );
+
+    }
+
+}
+
+</script>
+<!-- =========================================================
+     jsPDF
+========================================================= -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+<!-- =========================================================
+     FINAL PDF DOWNLOAD
+========================================================= -->
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const pdfButton =
+        document.getElementById("downloadpdfButton");
+
+    if (!pdfButton) return;
+
+
+    pdfButton.addEventListener("click", function () {
+
+        generateFinalPDF();
+
+    });
+
+});
+
+
+
+async function generateFinalPDF() {
+
+    try {
+
+        /* =====================================================
+           CHECK jsPDF
+        ===================================================== */
+
+        if (!window.jspdf) {
+
+            alert("PDF system loading. Please try again.");
+
+            return;
+
+        }
+
+
+        const { jsPDF } = window.jspdf;
+
+
+        /* =====================================================
+           CREATE A4 PDF
+        ===================================================== */
+
+        const pdf =
+            new jsPDF(
+                "p",
+                "mm",
+                "a4"
+            );
+
+
+        /* =====================================================
+           USER INFORMATION
+        ===================================================== */
+
+        let userName = "User";
+        let userEmail = "user@gmail.com";
+
+
+        try {
+
+            const savedUser =
+                JSON.parse(
+                    localStorage.getItem("userData") || "{}"
+                );
+
+
+            userName =
+                savedUser.fullName ||
+                savedUser.name ||
+                "User";
+
+
+            userEmail =
+                savedUser.email ||
+                "user@gmail.com";
+
+        }
+
+        catch (error) {
+
+            console.log("User data error:", error);
+
+        }
+
+
+
+        /* =====================================================
+           DATE & TIME
+        ===================================================== */
+
+        const now =
+            new Date();
+
+
+        const date =
+            now.toLocaleDateString(
+                "en-IN",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                }
+            );
+
+
+        const time =
+            now.toLocaleTimeString(
+                "en-IN",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                }
+            );
+
+
+
+        /* =====================================================
+           GET PAGE VALUES
+        ===================================================== */
+
+        function getValue(
+            id,
+            defaultValue
+        ) {
+
+            const element =
+                document.getElementById(id);
+
+
+            if (!element) {
+
+                return defaultValue;
+
+            }
+
+
+            return element.innerText.trim();
+
+        }
+
+
+        let classification =
+            getValue(
+                "classification",
+                "Unknown"
+            );
+
+
+        let confidence =
+            getValue(
+                "confidence",
+                "0%"
+            );
+
+
+        let nevus =
+            getValue(
+                "valueNevus",
+                "0%"
+            );
+
+
+        let melanoma =
+            getValue(
+                "valueMelanoma",
+                "0%"
+            );
+
+
+        let bcc =
+            getValue(
+                "valueBCC",
+                "0%"
+            );
+
+
+        let others =
+            getValue(
+                "valueOthers",
+                "0%"
+            );
+
+
+        let risk =
+            getValue(
+                "riskBadge",
+                "Low"
+            );
+
+
+        /* =====================================================
+           CLEAN RISK VALUE
+        ===================================================== */
+
+        risk =
+            risk
+                .replace("🛡️", "")
+                .replace("⚠️", "")
+                .trim();
+
+
+        /*
+           Convert long risk text into
+           short clean value
+        */
+
+        const riskLower =
+            risk.toLowerCase();
+
+
+        if (
+            riskLower.includes("low")
+        ) {
+
+            risk = "Low";
+
+        }
+
+        else if (
+            riskLower.includes("moderate")
+        ) {
+
+            risk = "Moderate";
+
+        }
+
+        else if (
+            riskLower.includes("high")
+        ) {
+
+            risk = "High";
+
+        }
+
+        else {
+
+            risk = "Low";
+
+        }
+
+
+
+        /* =====================================================
+           COLORS
+        ===================================================== */
+
+        const darkBlue =
+            [15, 75, 110];
+
+
+        const mediumBlue =
+            [30, 120, 160];
+
+
+        const lightBlue =
+            [235, 247, 252];
+
+
+        const lightGreen =
+            [235, 250, 243];
+
+
+        const lightYellow =
+            [255, 248, 225];
+
+
+        const textDark =
+            [50, 65, 75];
+
+
+
+        /* =====================================================
+           PAGE BACKGROUND
+        ===================================================== */
+
+        pdf.setFillColor(
+            255,
+            255,
+            255
+        );
+
+
+        pdf.rect(
+            0,
+            0,
+            210,
+            297,
+            "F"
+        );
+
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        pdf.setFillColor(
+            232,
+            246,
+            252
+        );
+
+
+        pdf.rect(
+            0,
+            0,
+            210,
+            35,
+            "F"
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+
+        pdf.setFontSize(
+            24
+        );
+
+
+        pdf.setTextColor(
+            ...darkBlue
+        );
+
+
+        pdf.text(
+            "DermaScan AI",
+            15,
+            15
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "normal"
+        );
+
+
+        pdf.setFontSize(
+            10
+        );
+
+
+        pdf.setTextColor(
+            80,
+            100,
+            115
+        );
+
+
+        pdf.text(
+            "AI-Based Skin Analysis System",
+            18,
+            22
+        );
+
+
+        pdf.text(
+            date + " | " + time,
+            153,
+            18
+        );
+
+
+
+        /* =====================================================
+           TITLE
+        ===================================================== */
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+
+        pdf.setFontSize(
+            23
+        );
+
+
+        pdf.setTextColor(
+            ...darkBlue
+        );
+
+
+        pdf.text(
+            "Skin Analysis Report",
+            15,
+            48
+        );
+
+
+        pdf.setDrawColor(
+            40,
+            135,
+            170
+        );
+
+
+        pdf.line(
+            15,
+            53,
+            72,
+            53
+        );
+
+
+
+        /* =====================================================
+           USER INFORMATION BOX
+        ===================================================== */
+
+        pdf.setFillColor(
+            ...lightBlue
+        );
+
+
+        pdf.roundedRect(
+            15,
+            62,
+            100,
+            42,
+            4,
+            4,
+            "F"
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+
+        pdf.setFontSize(
+            16
+        );
+
+
+        pdf.setTextColor(
+            ...darkBlue
+        );
+
+
+        pdf.text(
+            "User Information",
+            22,
+            72
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "normal"
+        );
+
+
+        pdf.setFontSize(
+            15
+        );
+
+
+        pdf.setTextColor(
+            ...textDark
+        );
+
+
+        pdf.text(
+            "Name:",
+            22,
+            82
+        );
+
+
+        pdf.text(
+            userName,
+            48,
+            82
+        );
+
+
+        pdf.text(
+            "Email:",
+            22,
+            90
+        );
+
+
+        pdf.text(
+            userEmail,
+            48,
+            90
+        );
+
+
+        pdf.text(
+            "Date:",
+            22,
+            98
+        );
+
+
+        pdf.text(
+            date,
+            48,
+            98
+        );
+
+
+
+        /* =====================================================
+           UPLOADED IMAGE BOX
+        ===================================================== */
+
+        pdf.setFillColor(
+            ...lightBlue
+        );
+
+
+        pdf.roundedRect(
+            120,
+            62,
+            75,
+            42,
+            4,
+            4,
+            "F"
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+
+        pdf.setFontSize(
+            15
+        );
+
+
+        pdf.setTextColor(
+            ...darkBlue
+        );
+
+
+        pdf.text(
+            "Uploaded Image",
+            127,
+            72
+        );
+
+
+        const uploadedImage =
+            localStorage.getItem(
+                "skinImage"
+            );
+
+
+        if (uploadedImage) {
+
+            try {
+
+                let imageFormat =
+                    "JPEG";
+
+
+                if (
+                    uploadedImage.includes(
+                        "image/png"
+                    )
+                ) {
+
+                    imageFormat =
+                        "PNG";
+
+                }
+
+
+                pdf.addImage(
+                    uploadedImage,
+                    imageFormat,
+                    133,
+                    76,
+                    50,
+                    24
+                );
+
+            }
+
+            catch (error) {
+
+                console.log(
+                    "Image error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           CLASSIFICATION BOX
+        ===================================================== */
+
+        pdf.setFillColor(
+            ...lightGreen
+        );
+
+
+        pdf.roundedRect(
+            15,
+            112,
+            100,
+            55,
+            4,
+            4,
+            "F"
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+
+        pdf.setFontSize(
+            17
+        );
+
+
+        pdf.setTextColor(
+            20,
+            100,
+            85
+        );
+
+
+        pdf.text(
+            "Classification",
+            22,
+            123
+        );
+
+
+        pdf.setFontSize(
+            17
+        );
+
+
+        pdf.text(
+            classification,
+            22,
+            137
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "normal"
+        );
+
+
+        pdf.setFontSize(
+            13
+        );
+
+
+        pdf.setTextColor(
+            ...textDark
+        );
+
+
+        pdf.text(
+            "Confidence",
+            28,
+            148
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+
+        pdf.text(
+            confidence,
+            90,
+            148
+        );
+
+
+        /* confidence bar */
+
+        pdf.setFillColor(
+            220,
+            235,
+            242
+        );
+
+
+        pdf.roundedRect(
+            22,
+            153,
+            78,
+            6,
+            2,
+            2,
+            "F"
+        );
+
+
+        let confidenceNumber =
+            parseFloat(
+                confidence
+            );
+
+
+        if (
+            isNaN(confidenceNumber)
+        ) {
+
+            confidenceNumber = 0;
+
+        }
+
+
+        confidenceNumber =
+            Math.max(
+                0,
+                Math.min(
+                    100,
+                    confidenceNumber
+                )
+            );
+
+
+        pdf.setFillColor(
+            55,
+            155,
+            175
+        );
+
+
+        pdf.roundedRect(
+            22,
+            153,
+            78 *
+                (
+                    confidenceNumber /
+                    100
+                ),
+            6,
+            2,
+            2,
+            "F"
+        );
+
+
+
+        /* =====================================================
+           RISK INDICATOR BOX
+        ===================================================== */
+
+        pdf.setFillColor(
+            238,
+            246,
+            253
+        );
+
+
+        pdf.roundedRect(
+            120,
+            112,
+            75,
+            55,
+            4,
+            4,
+            "F"
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+
+        pdf.setFontSize(
+            15
+        );
+
+
+        pdf.setTextColor(
+            ...darkBlue
+        );
+
+
+        pdf.text(
+            "Risk Indicator",
+            127,
+            123
+        );
+
+
+        /* =====================================================
+           RISK VALUE
+        ===================================================== */
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+
+        pdf.setFontSize(
+            22
+        );
+
+
+        pdf.setTextColor(
+            35,
+            125,
+            95
+        );
+
+
+        /*
+           IMPORTANT:
+           Fixed short value only.
+           No long text.
+        */
+
+        const riskWidth =
+            pdf.getTextWidth(
+                risk
+            );
+
+
+        pdf.text(
+            risk,
+            157 -
+                (riskWidth / 2),
+            140
+        );
+
+
+        /* risk note */
+
+        pdf.setFont(
+            "helvetica",
+            "normal"
+        );
+
+
+        pdf.setFontSize(
+            15
+        );
+
+
+        pdf.setTextColor(
+            70,
+            85,
+            95
+        );
+
+
+        const riskNote =
+            pdf.splitTextToSize(
+                "AI model prediction only. Not a medical diagnosis.",
+                60
+            );
+
+
+        pdf.text(
+            riskNote,
+            127,
+            151
+        );
+
+
+
+        /* =====================================================
+           MODEL OUTPUT BOX
+        ===================================================== */
+
+        pdf.setFillColor(
+            248,
+            252,
+            255
+        );
+
+
+        pdf.roundedRect(
+            15,
+            175,
+            180,
+            73,
+            4,
+            4,
+            "F"
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+
+        pdf.setFontSize(
+            16
+        );
+
+
+        pdf.setTextColor(
+            ...darkBlue
+        );
+
+
+        pdf.text(
+            "Model Output",
+            22,
+            187
+        );
+
+
+        /* table header */
+
+        pdf.setFillColor(
+            225,
+            242,
+            250
+        );
+
+
+        pdf.roundedRect(
+            22,
+            192,
+            166,
+            8,
+            2,
+            2,
+            "F"
+        );
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+
+        pdf.setFontSize(
+            13
+        );
+
+
+        pdf.setTextColor(
+            50,
+            75,
+            90
+        );
+
+
+        pdf.text(
+            "Classification",
+            26,
+            197.5
+        );
+
+
+        pdf.text(
+            "Probability",
+            165,
+            197.5
+        );
+
+
+
+        /* =====================================================
+           MODEL ROW FUNCTION
+        ===================================================== */
+
+        function drawModelRow(
+            label,
+            value,
+            y
+        ) {
+
+            pdf.setFont(
+                "helvetica",
+                "normal"
+            );
+
+
+            pdf.setFontSize(
+                15
+            );
+
+
+            pdf.setTextColor(
+                60,
+                75,
+                85
+            );
+
+
+            pdf.text(
+                label,
+                26,
+                y
+            );
+
+
+            /* background bar */
+
+            pdf.setFillColor(
+                220,
+                235,
+                242
+            );
+
+
+            pdf.roundedRect(
+                72,
+                y - 4.5,
+                82,
+                5,
+                2,
+                2,
+                "F"
+            );
+
+
+            let number =
+                parseFloat(
+                    value
+                );
+
+
+            if (
+                isNaN(number)
+            ) {
+
+                number = 0;
+
+            }
+
+
+            number =
+                Math.max(
+                    0,
+                    Math.min(
+                        100,
+                        number
+                    )
+                );
+
+
+            /* filled bar */
+
+            pdf.setFillColor(
+                80,
+                160,
+                180
+            );
+
+
+            if (
+                number > 0
+            ) {
+
+                pdf.roundedRect(
+                    72,
+                    y - 4.5,
+                    82 *
+                        (
+                            number /
+                            100
+                        ),
+                    5,
+                    2,
+                    2,
+                    "F"
+                );
+
+            }
+
+
+            /* percentage */
+
+            pdf.setFont(
+                "helvetica",
+                "bold"
+            );
+
+
+            pdf.setFontSize(
+                18
+            );
+
+
+            pdf.setTextColor(
+                55,
+                75,
+                85
+            );
+
+
+            pdf.text(
+                value,
+                166,
+                y
+            );
+
+        }
+
+
+
+        /* =====================================================
+           FOUR MODEL OUTPUTS
+        ===================================================== */
+
+        drawModelRow(
+            "Nevus",
+            nevus,
+            211
+        );
+
+
+        drawModelRow(
+            "Melanoma",
+            melanoma,
+            223
+        );
+
+
+        drawModelRow(
+            "BCC",
+            bcc,
+            235
+        );
+
+
+        drawModelRow(
+            "Others",
+            others,
+            247
+        );
+
+
+
+        /* =====================================================
+           IMPORTANT BOX
+        ===================================================== */
+
+        pdf.setFillColor(
+            ...lightYellow
+        );
+
+
+        pdf.roundedRect(
+            15,
+            255,
+            180,
+            25,
+            4,
+            4,
+            "F"
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "bold"
+        );
+
+
+        pdf.setFontSize(
+            16
+        );
+
+
+        pdf.setTextColor(
+            150,
+            105,
+            35
+        );
+
+
+        pdf.text(
+            "IMPORTANT",
+            20,
+            264
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "normal"
+        );
+
+
+        pdf.setFontSize(
+            12
+        );
+
+
+        pdf.setTextColor(
+            80,
+            80,
+            80
+        );
+
+
+        const importantText =
+            "This AI result is not a final medical diagnosis. Please consult a qualified doctor or dermatologist for proper evaluation and treatment.";
+
+
+        const importantLines =
+            pdf.splitTextToSize(
+                importantText,
+                160
+            );
+
+
+        pdf.text(
+            importantLines,
+            24,
+            271
+        );
+
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        pdf.setDrawColor(
+            205,
+            220,
+            228
+        );
+
+
+        pdf.line(
+            15,
+            287,
+            195,
+            287
+        );
+
+
+        pdf.setFont(
+            "helvetica",
+            "normal"
+        );
+
+
+        pdf.setFontSize(
+            10
+        );
+
+
+        pdf.setTextColor(
+            100,
+            115,
+            125
+        );
+
+
+        pdf.text(
+            "DermaScan AI | Skin Analysis Report",
+            15,
+            292
+        );
+
+
+        pdf.text(
+            "Page 1",
+            177,
+            292
+        );
+
+
+
+        /* =====================================================
+           DOWNLOAD
+        ===================================================== */
+
+        const safeName =
+            userName.replace(
+                /[^a-zA-Z0-9]/g,
+                "_"
+            );
+
+
+        pdf.save(
+            "DermaScan_AI_Report_" +
+            safeName +
+            ".pdf"
+        );
+
+
+        console.log(
+            "PDF generated successfully"
+        );
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "PDF ERROR:",
+            error
+        );
+
+
+        alert(
+            "PDF create panna mudiyala. Please try again."
+        );
+
+    }
+
+}
+
+</script>
+<script>
+/* =====================================================
+   FINAL SKINGUARD AI CHATBOT
+   RESULT.HTML
+===================================================== */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const chatbotButton =
+        document.getElementById("chatbotButton");
+
+    const chatbot =
+        document.getElementById("chatbot");
+
+    const closeChat =
+        document.getElementById("closeChat");
+
+    const sendMessage =
+        document.getElementById("sendMessage");
+
+    const chatInput =
+        document.getElementById("chatInput");
+
+    const chatBody =
+        document.querySelector("#chatbot .chat-body");
+
+
+    /* ==============================================
+       OPEN CHATBOT
+    ============================================== */
+
+    if (chatbotButton && chatbot) {
+
+        chatbotButton.addEventListener(
+            "click",
+            function () {
+
+                chatbot.classList.add("open");
+
+                if (chatInput) {
+                    chatInput.focus();
+                }
+
+            }
+        );
+
+    }
+
+
+    /* ==============================================
+       CLOSE CHATBOT
+    ============================================== */
+
+    if (closeChat && chatbot) {
+
+        closeChat.addEventListener(
+            "click",
+            function () {
+
+                chatbot.classList.remove("open");
+
+            }
+        );
+
+    }
+
+
+    /* ==============================================
+       SEND MESSAGE
+    ============================================== */
+
+    async function sendChatMessage() {
+
+        if (!chatInput || !chatBody) {
+            return;
+        }
+
+
+        const message =
+            chatInput.value.trim();
+
+
+        if (!message) {
+            return;
+        }
+
+
+        /* USER MESSAGE */
+
+        const userMessage =
+            document.createElement("div");
+
+        userMessage.className =
+            "user-message";
+
+        userMessage.textContent =
+            message;
+
+        chatBody.appendChild(
+            userMessage
+        );
+
+
+        chatInput.value = "";
+
+
+        /* BOT MESSAGE */
+
+        const botMessage =
+            document.createElement("div");
+
+        botMessage.className =
+            "bot-message";
+
+        botMessage.textContent =
+            "Typing...";
+
+        chatBody.appendChild(
+            botMessage
+        );
+
+
+        chatBody.scrollTop =
+            chatBody.scrollHeight;
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "http://127.0.0.1:5000/chat",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify({
+                                message: message
+                            })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            /* =====================================
+               SUCCESS
+            ===================================== */
+
+            if (data.reply) {
+
+                botMessage.textContent =
+                    data.reply;
+
+            }
+
+
+            /* =====================================
+               QUOTA ERROR
+            ===================================== */
+
+            else if (
+                response.status === 429
+            ) {
+
+                botMessage.textContent =
+                    "SkinGuard AI is temporarily unavailable. Please try again later.";
+
+            }
+
+
+            /* =====================================
+               OTHER ERROR
+            ===================================== */
+
+            else {
+
+                botMessage.textContent =
+                    data.error ||
+                    "Sorry, I couldn't answer that.";
+
+            }
+
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "SkinGuard AI Error:",
+                error
+            );
+
+            botMessage.textContent =
+                "Unable to connect to SkinGuard AI.";
+
+        }
+
+
+        chatBody.scrollTop =
+            chatBody.scrollHeight;
+
+    }
+
+
+    /* ==============================================
+       SEND BUTTON
+    ============================================== */
+
+    if (sendMessage) {
+
+        sendMessage.addEventListener(
+            "click",
+            sendChatMessage
+        );
+
+    }
+
+
+    /* ==============================================
+       ENTER KEY
+    ============================================== */
+
+    if (chatInput) {
+
+        chatInput.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (event.key === "Enter") {
+
+                    event.preventDefault();
+
+                    sendChatMessage();
+
+                }
+
+            }
+        );
+
+    }
+
+});
+</script>
+<script src="script.js"></script>
+</body>
+
+</html>

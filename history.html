@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DermaScan</title>
+<link rel="icon" type="image/png" href="c:\Users\elava\Downloads\0e39a743-bec1-4ac9-9020-8d3fb1b3d1f3.webp">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* =========================================
+           HISTORY USER FLOATING COMPONENT
+        ========================================= */
+
+        .history-user-menu {
+            position: relative;
+        }
+
+        .history-user-trigger {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            padding: 8px 12px;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            color: #486784;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.2s ease;
+        }
+
+        .history-user-trigger:hover {
+            background: #eef8ff;
+        }
+
+        .history-user-avatar {
+            width: 34px;
+            height: 34px;
+
+            border-radius: 50%;
+
+            background: #e5f5ff;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 18px;
+        }
+
+
+        /* =========================================
+           FLOATING DROPDOWN
+        ========================================= */
+
+        .history-user-dropdown {
+            position: absolute;
+
+            top: 48px;
+            right: 0;
+
+            width: 270px;
+
+            background: white;
+
+            border: 1px solid #e4edf4;
+
+            border-radius: 16px;
+
+            padding: 14px;
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.16);
+
+            z-index: 99999;
+
+            display: none;
+        }
+
+        .history-user-dropdown.show {
+            display: block !important;
+        }
+
+
+        /* USER INFORMATION */
+
+        .history-user-info {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 6px 5px 14px;
+        }
+
+        .history-dropdown-avatar {
+            width: 43px;
+            height: 43px;
+
+            border-radius: 50%;
+
+            background: #e5f5ff;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 21px;
+        }
+
+        .history-user-details {
+            display: flex;
+            flex-direction: column;
+
+            gap: 4px;
+        }
+
+        .history-user-details strong {
+            font-size: 14px;
+
+            color: #294b63;
+        }
+
+        .history-user-details span {
+            font-size: 12px;
+
+            color: #8aa1b7;
+        }
+
+
+        /* DIVIDER */
+
+        .history-dropdown-divider {
+            height: 1px;
+
+            background: #edf2f6;
+
+            margin: 5px 0;
+        }
+
+
+        /* DROPDOWN ITEMS */
+
+        .history-dropdown-item {
+            width: 100%;
+
+            border: none;
+
+            background: transparent;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 12px 10px;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            color: #486784;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            text-align: left;
+
+            transition: 0.2s ease;
+        }
+
+        .history-dropdown-item:hover {
+            background: #eef8ff;
+
+            color: #087db5;
+        }
+
+        .history-dropdown-item span:first-child {
+            width: 22px;
+
+            text-align: center;
+
+            font-size: 17px;
+        }
+
+        .history-logout {
+            color: #d9534f;
+        }
+
+        .history-logout:hover {
+            background: #fff1f1;
+
+            color: #d93025;
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 600px) {
+
+            .history-user-dropdown {
+                right: -10px;
+
+                width: 250px;
+            }
+
+        }
+
+    </style>
+<style>
+
+/* =========================================
+   HISTORY PAGE - SKINGUARD CHATBOT
+========================================= */
+
+.chatbot-button {
+    position: fixed !important;
+    right: 25px !important;
+    bottom: 25px !important;
+
+    width: 60px !important;
+    height: 60px !important;
+
+    border: none !important;
+    border-radius: 50% !important;
+
+    background: #e5f5ff !important;
+
+    font-size: 28px !important;
+
+    cursor: pointer !important;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+
+    z-index: 999999 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.chatbot {
+    position: fixed !important;
+
+    right: 25px !important;
+    bottom: 95px !important;
+
+    width: 350px !important;
+    height: 470px !important;
+
+    background: white !important;
+
+    border-radius: 18px !important;
+
+    box-shadow: 0 15px 45px rgba(0,0,0,0.20) !important;
+
+    overflow: hidden !important;
+
+    z-index: 999998 !important;
+
+    display: none !important;
+
+    flex-direction: column !important;
+}
+
+.chatbot.open {
+    display: flex !important;
+}
+
+
+/* HEADER */
+
+.chat-header {
+    background: #e5f5ff !important;
+
+    padding: 15px 18px !important;
+
+    display: flex !important;
+
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+.chat-header strong {
+    display: block !important;
+
+    color: #294b63 !important;
+
+    font-size: 15px !important;
+}
+
+.chat-header span {
+    display: block !important;
+
+    color: #7d95a8 !important;
+
+    font-size: 11px !important;
+
+    margin-top: 3px !important;
+}
+
+.chat-header button {
+    border: none !important;
+
+    background: transparent !important;
+
+    font-size: 25px !important;
+
+    color: #486784 !important;
+
+    cursor: pointer !important;
+}
+
+
+/* CHAT BODY */
+
+.chat-body {
+    flex: 1 !important;
+
+    padding: 15px !important;
+
+    overflow-y: auto !important;
+
+    background: #f8fcff !important;
+}
+
+.bot-message,
+.user-message {
+    max-width: 80% !important;
+
+    padding: 10px 13px !important;
+
+    margin-bottom: 10px !important;
+
+    border-radius: 12px !important;
+
+    font-size: 13px !important;
+
+    line-height: 1.5 !important;
+
+    word-wrap: break-word !important;
+}
+
+.bot-message {
+    background: #e8f6ff !important;
+
+    color: #294b63 !important;
+
+    margin-right: auto !important;
+}
+
+.user-message {
+    background: #087db5 !important;
+
+    color: white !important;
+
+    margin-left: auto !important;
+}
+
+
+/* INPUT */
+
+.chat-input {
+    display: flex !important;
+
+    gap: 8px !important;
+
+    padding: 12px !important;
+
+    background: white !important;
+
+    border-top: 1px solid #edf2f6 !important;
+}
+
+.chat-input input {
+    flex: 1 !important;
+
+    min-width: 0 !important;
+
+    border: 1px solid #dce8ef !important;
+
+    border-radius: 10px !important;
+
+    padding: 10px !important;
+
+    outline: none !important;
+
+    font-family: inherit !important;
+
+    font-size: 13px !important;
+}
+
+.chat-input button {
+    width: 42px !important;
+
+    border: none !important;
+
+    border-radius: 10px !important;
+
+    background: #087db5 !important;
+
+    color: white !important;
+
+    cursor: pointer !important;
+
+    font-size: 17px !important;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .chatbot {
+        right: 12px !important;
+        bottom: 85px !important;
+
+        width: calc(100vw - 24px) !important;
+
+        height: 450px !important;
+    }
+
+    .chatbot-button {
+        right: 15px !important;
+        bottom: 15px !important;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- =========================================
+         SIDEBAR
+    ========================================= -->
+
+    <aside class="sidebar" id="sidebar">
+
+
+        <!-- BRAND -->
+
+        <div class="brand">
+
+            <div class="brand-icon">
+
+                <img
+                    src="C:\Users\elava\Downloads\0e39a743-bec1-4ac9-9020-8d3fb1b3d1f3.webp"
+                    height="30"
+                    alt="DermaScan AI"
+                >
+
+            </div>
+
+            <span>
+                DermaScan <strong>AI</strong>
+            </span>
+
+        </div>
+
+
+        <!-- WELCOME -->
+
+        <div class="welcome">
+
+            <p>
+                Welcome,
+            </p>
+
+            <h2 id="sidebarUserName">
+                User
+            </h2>
+
+            <span>
+                Let's keep your skin healthy!
+            </span>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="navigation">
+
+
+            <a href="image.html"
+               class="nav-item active">
+
+                <span class="nav-icon">
+                    🧠
+                </span>
+
+                <span>
+                    Upload Image
+                </span>
+
+            </a>
+
+
+            <a href="result.html"
+               class="nav-item active">
+
+                <span class="nav-icon">
+                    📊
+                </span>
+
+                <span>
+                    Result
+                </span>
+
+            </a>
+ <button
+                            class="final-pdf-button"
+                            onclick="downloadPDF()">
+
+                            ↓
+                            Download PDF Report
+
+                        </button>
+
+           
+
+
+        </nav>
+
+
+        <!-- SIDEBAR BOTTOM -->
+
+        <div class="sidebar-bottom">
+
+            <div class="leaf-decoration">
+                🌿
+            </div>
+
+            <div class="care-message">
+
+                <span>
+                    ❤️
+                </span>
+
+                <p>
+                    Early Detection.<br>
+                    Better Care.<br>
+                    Healthier You
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =========================================
+         MAIN
+    ========================================= -->
+
+    <main class="main">
+
+
+        <!-- =====================================
+             HEADER
+        ===================================== -->
+
+        <header class="header">
+
+
+            <button
+                class="menu-button"
+                id="menuButton">
+
+                ☰
+
+            </button>
+
+
+            <div class="mobile-logo">
+
+                🌿 SkinCare <strong>AI</strong>
+
+            </div>
+
+
+            <div class="header-navigation">
+
+
+                <!-- HOME -->
+
+                <a href="image.html"
+                   class="top-link">
+
+                    🏠
+
+                    <span>
+                        Home
+                    </span>
+
+                </a>
+
+
+
+                <!-- =================================
+                     USER FLOATING COMPONENT
+                ================================= -->
+
+                <div class="history-user-menu">
+
+
+                    <!-- USER BUTTON -->
+
+                    <div
+                        class="history-user-trigger"
+                        id="historyUserTrigger"
+                        onclick="toggleHistoryUser(event)"
+                    >
+
+                        <div class="history-user-avatar">
+                            👤
+                        </div>
+
+                        <span id="topUserName">
+                            User
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- =================================
+                         FLOATING USER CARD
+                    ================================= -->
+
+                    <div
+                        class="history-user-dropdown"
+                        id="historyUserDropdown"
+                    >
+
+
+                        <!-- USER INFORMATION -->
+
+                        <div class="history-user-info">
+
+
+                            <div class="history-dropdown-avatar">
+                                👤
+                            </div>
+
+
+                            <div class="history-user-details">
+
+                                <strong id="dropdownUserName">
+                                    User
+                                </strong>
+
+                                <span id="dropdownUserEmail">
+                                    user@gmail.com
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="history-dropdown-divider">
+                        </div>
+
+
+                        <!-- PROFILE -->
+
+                        <button
+                            type="button"
+                            class="history-dropdown-item"
+                            onclick="openHistoryProfile()"
+                        >
+
+                            <span>
+                                ⚙️
+                            </span>
+
+                            <span>
+                                Profile Settings
+                            </span>
+
+                        </button>
+
+
+                        <!-- PASSWORD -->
+
+                        <button
+                            type="button"
+                            class="history-dropdown-item"
+                            onclick="openHistoryPassword()"
+                        >
+
+                            <span>
+                                🔒
+                            </span>
+
+                            <span>
+                                Change Password
+                            </span>
+
+                        </button>
+
+
+                        <div class="history-dropdown-divider">
+                        </div>
+
+
+                        <!-- LOGOUT -->
+
+                        <button
+                            type="button"
+                            class="history-dropdown-item history-logout"
+                            onclick="historyLogout()"
+                        >
+
+                            <span>
+                                🚪
+                            </span>
+
+                            <span>
+                                Logout
+                            </span>
+
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================================
+             HISTORY CONTENT
+        ========================================= -->
+
+        <section class="history-section">
+
+
+            <!-- PAGE HEADING -->
+
+            <div class="page-heading">
+
+                <div>
+
+                    <h1>
+                        History
+                    </h1>
+
+                    <p>
+                        Your previous skin analysis results
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SEARCH & FILTER -->
+
+            <div class="history-controls">
+
+
+                <div class="history-search">
+
+                    <span>
+                        🔍
+                    </span>
+
+                    <input
+                        type="text"
+                        id="historySearch"
+                        placeholder="Search history..."
+                    >
+
+                </div>
+
+
+                <div class="history-filter">
+
+                    <select id="riskFilter">
+
+                        <option value="all">
+                            All Risk
+                        </option>
+
+                        <option value="low">
+                            Low Risk
+                        </option>
+
+                        <option value="medium">
+                            Medium Risk
+                        </option>
+
+                        <option value="high">
+                            High Risk
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =========================================
+                 HISTORY LIST
+            ========================================= -->
+
+            <div
+                id="historyList"
+                class="history-list"
+            >
+
+
+                <!-- HISTORY CARD 1 -->
+
+                <div class="history-card">
+
+
+                    <div class="history-image">
+
+                        <img
+                            src="https://via.placeholder.com/150"
+                            alt="Skin Analysis"
+                        >
+
+                    </div>
+
+
+                    <div class="history-details">
+
+                        <h3>
+                            Nevus
+                        </h3>
+
+                        <p class="history-confidence">
+                            Confidence:
+                            <strong>
+                                92%
+                            </strong>
+                        </p>
+
+                        <p class="history-risk">
+
+                            <span class="risk-dot low">
+                            </span>
+
+                            Low Risk
+
+                        </p>
+
+                        <div class="history-date">
+
+                            📅 01 Oct 2026
+                            &nbsp;&nbsp;
+                            🕐 10:30 AM
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="history-actions">
+
+
+                        <button
+                            class="view-result"
+                            onclick="viewHistoryResult(1)"
+                        >
+                            View Result
+                        </button>
+
+
+                        <button
+                            class="download-btn"
+                            onclick="downloadHistoryPDF(1)"
+                        >
+                            Download
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- HISTORY CARD 2 -->
+
+                <div class="history-card">
+
+
+                    <div class="history-image">
+
+                        <img
+                            src="https://via.placeholder.com/150"
+                            alt="Skin Analysis"
+                        >
+
+                    </div>
+
+
+                    <div class="history-details">
+
+                        <h3>
+                            Melanoma
+                        </h3>
+
+                        <p class="history-confidence">
+                            Confidence:
+                            <strong>
+                                87%
+                            </strong>
+                        </p>
+
+                        <p class="history-risk">
+
+                            <span class="risk-dot high">
+                            </span>
+
+                            High Risk
+
+                        </p>
+
+                        <div class="history-date">
+
+                            📅 28 Sep 2026
+                            &nbsp;&nbsp;
+                            🕐 04:15 PM
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="history-actions">
+
+
+                        <button
+                            class="view-result"
+                            onclick="viewHistoryResult(2)"
+                        >
+                            View Result
+                        </button>
+
+
+                        <button
+                            class="download-btn"
+                            onclick="downloadHistoryPDF(2)"
+                        >
+                            Download
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =========================================
+                 NO HISTORY
+            ========================================= -->
+
+            <div
+                id="noHistory"
+                class="no-history"
+                style="display: none;"
+            >
+
+                <div class="no-history-icon">
+                    🕘
+                </div>
+
+                <h2>
+                    No Analysis History
+                </h2>
+
+                <p>
+                    You haven't performed any skin analysis yet.
+                </p>
+
+                <a
+                    href="image.html"
+                    class="analyze-button"
+                >
+                    Analyze Now
+                </a>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================================
+         CHATBOT BUTTON
+    ========================================= -->
+
+    <button
+        class="chatbot-button"
+        id="chatbotButton"
+    >
+        🤖
+    </button>
+
+
+
+    <!-- =========================================
+         CHATBOT
+    ========================================= -->
+
+    <div
+        class="chatbot"
+        id="chatbot"
+    >
+
+
+        <div class="chat-header">
+
+            <div>
+
+                <strong>
+                    🤖 DermaScan AI
+                </strong>
+
+                <span>
+                    AI Assistant
+                </span>
+
+            </div>
+
+
+            <button id="closeChat">
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="chat-body">
+
+            <div class="bot-message">
+
+                Hi! 👋
+
+                <br><br>
+
+                I'm SkinGuard AI.
+                How can I help you?
+
+            </div>
+
+        </div>
+
+
+        <div class="chat-input">
+
+            <input
+                type="text"
+                id="chatInput"
+                placeholder="Ask a question..."
+            >
+
+            <button id="sendMessage">
+                ➤
+            </button>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- =========================================
+     COMMON JAVASCRIPT
+========================================= -->
+
+<script src="code.js"></script>
+
+
+<!-- =========================================
+     HISTORY USER DROPDOWN JAVASCRIPT
+========================================= -->
+
+<script>
+
+    /* ===============================
+       USER DROPDOWN
+    =============================== */
+
+    function toggleHistoryUser(event) {
+
+        event.stopPropagation();
+
+        const dropdown =
+            document.getElementById("historyUserDropdown");
+
+        dropdown.classList.toggle("show");
+
+    }
+
+
+    /* ===============================
+       CLOSE WHEN CLICK OUTSIDE
+    =============================== */
+
+    document.addEventListener("click", function () {
+
+        const dropdown =
+            document.getElementById("historyUserDropdown");
+
+        if (dropdown) {
+
+            dropdown.classList.remove("show");
+
+        }
+
+    });
+
+
+    /* ===============================
+       PROFILE
+    =============================== */
+
+    function openHistoryProfile() {
+
+        alert("Profile Settings");
+
+    }
+
+
+    /* ===============================
+       CHANGE PASSWORD
+    =============================== */
+
+    function openHistoryPassword() {
+
+        alert("Change Password");
+
+    }
+
+
+    /* ===============================
+       LOGOUT
+    =============================== */
+
+    function historyLogout() {
+
+        localStorage.removeItem("loggedInUser");
+
+        window.location.href = "index.html";
+
+    }
+
+
+    /* ===============================
+       LOAD USER DETAILS
+    =============================== */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            const userData =
+                localStorage.getItem("userData");
+
+
+            if (userData) {
+
+                try {
+
+                    const user =
+                        JSON.parse(userData);
+
+
+                    const name =
+                        user.fullName ||
+                        user.name ||
+                        "User";
+
+
+                    const email =
+                        user.email ||
+                        "user@gmail.com";
+
+
+                    const topName =
+                        document.getElementById(
+                            "topUserName"
+                        );
+
+
+                    const dropdownName =
+                        document.getElementById(
+                            "dropdownUserName"
+                        );
+
+
+                    const dropdownEmail =
+                        document.getElementById(
+                            "dropdownUserEmail"
+                        );
+
+
+                    const sidebarName =
+                        document.getElementById(
+                            "sidebarUserName"
+                        );
+
+
+                    if (topName) {
+
+                        topName.textContent =
+                            name;
+
+                    }
+
+
+                    if (dropdownName) {
+
+                        dropdownName.textContent =
+                            name;
+
+                    }
+
+
+                    if (dropdownEmail) {
+
+                        dropdownEmail.textContent =
+                            email;
+
+                    }
+
+
+                    if (sidebarName) {
+
+                        sidebarName.textContent =
+                            name;
+
+                    }
+
+
+                }
+
+                catch (error) {
+
+                    console.log(
+                        "User data error:",
+                        error
+                    );
+
+                }
+
+            }
+
+        }
+
+    );
+
+</script>
+
+<script>
+
+/* =========================================
+   HISTORY PAGE - SKINGUARD AI CHATBOT
+========================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const chatbotButton =
+        document.getElementById("chatbotButton");
+
+    const chatbot =
+        document.getElementById("chatbot");
+
+    const closeChat =
+        document.getElementById("closeChat");
+
+    const sendMessage =
+        document.getElementById("sendMessage");
+
+    const chatInput =
+        document.getElementById("chatInput");
+
+    const chatBody =
+        document.querySelector(".chat-body");
+
+
+    /* ===============================
+       OPEN CHATBOT
+    =============================== */
+
+    if (chatbotButton && chatbot) {
+
+        chatbotButton.addEventListener(
+            "click",
+            function () {
+
+                chatbot.classList.add("open");
+
+                if (chatInput) {
+                    chatInput.focus();
+                }
+
+            }
+        );
+
+    }
+
+
+    /* ===============================
+       CLOSE CHATBOT
+    =============================== */
+
+    if (closeChat && chatbot) {
+
+        closeChat.addEventListener(
+            "click",
+            function () {
+
+                chatbot.classList.remove("open");
+
+            }
+        );
+
+    }
+
+
+    /* ===============================
+       SEND MESSAGE
+    =============================== */
+
+    async function sendChatMessage() {
+
+        if (!chatInput || !chatBody) {
+            return;
+        }
+
+
+        const message =
+            chatInput.value.trim();
+
+
+        if (!message) {
+            return;
+        }
+
+
+        /* USER MESSAGE */
+
+        const userMessage =
+            document.createElement("div");
+
+        userMessage.className =
+            "user-message";
+
+        userMessage.textContent =
+            message;
+
+        chatBody.appendChild(
+            userMessage
+        );
+
+
+        chatInput.value = "";
+
+
+        /* BOT MESSAGE */
+
+        const botMessage =
+            document.createElement("div");
+
+        botMessage.className =
+            "bot-message";
+
+        botMessage.textContent =
+            "Typing...";
+
+        chatBody.appendChild(
+            botMessage
+        );
+
+
+        chatBody.scrollTop =
+            chatBody.scrollHeight;
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "http://127.0.0.1:5000/chat",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            message: message
+                        })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (response.status === 429) {
+
+                botMessage.textContent =
+                    "SkinGuard AI is temporarily unavailable. Please try again later.";
+
+                return;
+            }
+
+
+            if (data.reply) {
+
+                botMessage.textContent =
+                    data.reply;
+
+            }
+
+            else if (data.error) {
+
+                botMessage.textContent =
+                    data.error;
+
+            }
+
+            else {
+
+                botMessage.textContent =
+                    "Sorry, I couldn't answer that.";
+
+            }
+
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Chatbot Error:",
+                error
+            );
+
+            botMessage.textContent =
+                "Unable to connect to SkinGuard AI.";
+
+        }
+
+
+        chatBody.scrollTop =
+            chatBody.scrollHeight;
+
+    }
+
+
+    /* ===============================
+       SEND BUTTON
+    =============================== */
+
+    if (sendMessage) {
+
+        sendMessage.addEventListener(
+            "click",
+            sendChatMessage
+        );
+
+    }
+
+
+    /* ===============================
+       ENTER KEY
+    =============================== */
+
+    if (chatInput) {
+
+        chatInput.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (event.key === "Enter") {
+
+                    event.preventDefault();
+
+                    sendChatMessage();
+
+                }
+
+            }
+        );
+
+    }
+
+});
+
+</script>
+</body>
+
+</html>

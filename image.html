@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DermaScan AI</title>
+<link rel="icon" type="image/png" href="c:\Users\elava\Downloads\0e39a743-bec1-4ac9-9020-8d3fb1b3d1f3.webp">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+    <div class="app">
+
+
+        <!-- ================= SIDEBAR ================= -->
+
+        <aside class="sidebar" id="sidebar">
+
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    <img src="C:\Users\elava\Downloads\0e39a743-bec1-4ac9-9020-8d3fb1b3d1f3.webp" height="30"
+            >
+                </div>
+
+                <span>
+                    DermaScan <strong>AI</strong>
+                </span>
+
+            </div>
+
+
+            <div class="welcome">
+
+                <p>
+                    Welcome,
+                </p>
+
+                <h2 id="sidebarUserName">
+                    User 
+                </h2>
+
+                <span>
+                    Let's keep your skin healthy!
+                </span>
+
+            </div>
+
+
+            <nav class="navigation">
+
+
+                
+
+
+               <a href="history.html"
+                   class="nav-item active">
+
+                    <span class="nav-icon">
+                      🕘
+                    </span>
+
+                    <span>
+                        History
+                    </span>
+
+                </a>
+
+
+            </nav>
+
+
+            <div class="sidebar-bottom">
+
+                <div class="leaf-decoration">
+                    🌿
+                </div>
+
+                <div class="care-message">
+
+                    <span>
+                        ❤️
+                    </span>
+
+                    <p>
+                        Early Detection.<br>
+                        Better Care.<br>
+                        Healthier You
+                    </p>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+
+        <!-- ================= MAIN AREA ================= -->
+
+        <main class="main">
+
+
+            <!-- ================= HEADER ================= -->
+
+            <header class="header">
+
+
+                <button
+                    class="menu-button"
+                    id="menuButton">
+
+                    ☰
+
+                </button>
+
+
+                <div class="mobile-logo">
+
+                    🔍  SkinCare <strong>AI</strong>
+
+                </div>
+
+
+
+                <div class="header-navigation">
+
+
+                    <!-- HOME -->
+
+                    <a href="image.html"
+                       class="top-link active">
+
+                        🏠
+
+                        <span>
+                            Home
+                        </span>
+
+                    </a>
+
+
+
+                    
+
+
+
+                    <!-- ================= USER MENU ================= -->
+
+                    <div class="user-menu"
+                         id="userMenu">
+
+
+                        <!-- USER BUTTON -->
+
+                        <div class="user-trigger"
+                             id="userTrigger">
+
+
+                            <div class="user-avatar">
+                                👤
+                            </div>
+
+
+                            <!-- Dynamic user name -->
+
+                            <span id="topUserName">
+                                User
+                            </span>
+
+
+                            
+
+
+                        </div>
+
+
+
+                        <!-- ================= FLOATING DROPDOWN ================= -->
+
+                        <div class="user-dropdown"
+                             id="userDropdown">
+
+
+                            <!-- USER INFORMATION -->
+
+                            <div class="user-info">
+
+
+                                <div class="dropdown-avatar">
+                                    👤
+                                </div>
+
+
+                                <div class="user-details">
+
+
+                                    <!-- Dynamic name -->
+
+                                    <strong id="dropdownUserName">
+                                        User
+                                    </strong>
+
+
+                                    <!-- Dynamic email -->
+
+                                    <span id="dropdownUserEmail">
+                                        user@gmail.com
+                                    </span>
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <div class="dropdown-divider">
+                            </div>
+
+
+
+                            <!-- PROFILE SETTINGS -->
+
+                            <button
+                                class="dropdown-item"
+                                onclick="openProfileSettings()">
+
+
+                                <span>
+                                    ⚙️
+                                </span>
+
+
+                                <span>
+                                    Profile Settings
+                                </span>
+
+
+                            </button>
+
+
+
+                            <!-- CHANGE PASSWORD -->
+
+                            <button
+                                class="dropdown-item"
+                                onclick="changePassword()">
+
+
+                                <span>
+                                    🔒
+                                </span>
+
+
+                                <span>
+                                    Change Password
+                                </span>
+
+
+                            </button>
+
+
+
+                            <div class="dropdown-divider">
+                            </div>
+
+
+
+                            <!-- LOGOUT -->
+
+                            <button
+                                class="dropdown-item logout-item"
+                                onclick="logoutUser()">
+
+
+                                <span>
+                                    🚪
+                                </span>
+
+
+                                <span>
+                                    Logout
+                                </span>
+
+
+                            </button>
+
+
+                        </div>
+
+                        <!-- END USER DROPDOWN -->
+
+
+                    </div>
+
+                    <!-- END USER MENU -->
+
+
+                </div>
+
+            </header>
+
+
+
+            <!-- ================= CONTENT ================= -->
+
+            <section class="content">
+
+
+                <div class="page-heading">
+
+
+                    <h1>
+                        Skin Lesion Analysis
+                    </h1>
+
+
+                    <p>
+                        Upload an image of the skin lesion
+                        to get started.
+                    </p>
+
+
+                </div>
+
+
+
+                <!-- ================= ANALYSIS CARDS ================= -->
+
+                <div class="analysis-grid">
+
+
+
+                    <!-- ================= UPLOAD CARD ================= -->
+
+                    <div class="card upload-card">
+
+
+                        <div
+                            class="drop-zone"
+                            id="dropZone">
+
+
+                            <div class="upload-icon">
+                                ☁️
+                            </div>
+
+
+                            <h3>
+                                Drag & drop your image here
+                            </h3>
+
+
+                            <span class="or">
+                                or
+                            </span>
+
+
+
+                            <label
+                                for="imageInput"
+                                class="browse-button">
+
+                                Browse Files
+
+                            </label>
+
+
+
+                            <input
+                                type="file"
+                                id="imageInput"
+                                accept="image/png, image/jpeg"
+                                hidden>
+
+
+
+                            <p class="file-info">
+
+                                JPG, PNG (Max 5MB)
+
+                            </p>
+
+
+                        </div>
+
+
+
+                        <button
+                            class="analyze-button"
+                            id="analyzeButton"
+                            disabled>
+
+                            Analyze Image
+
+                        </button>
+
+
+
+                        <!-- PROCESSING -->
+
+                        <div
+                            class="processing"
+                            id="processing">
+
+
+                            <div class="spinner">
+                            </div>
+
+
+                            <p>
+                                Analyzing your image...
+                            </p>
+
+
+                            <span>
+                                Please wait
+                            </span>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- ================= PREVIEW CARD ================= -->
+
+                    <div class="card preview-card">
+
+
+                        <h2>
+                            Image Preview
+                        </h2>
+
+
+
+                        <div
+                            class="image-preview"
+                            id="imagePreview">
+
+
+                            <div
+                                class="empty-preview"
+                                id="emptyPreview">
+
+
+                                <div class="preview-icon">
+                                    🖼️
+                                </div>
+
+
+                                <p>
+                                    No image selected
+                                </p>
+
+
+                            </div>
+
+
+
+                            <img
+                                id="previewImage"
+                                alt="Selected skin image">
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- ================= RESULT MESSAGE ================= -->
+
+                <div
+                    class="result-message"
+                    id="resultMessage">
+
+
+                    <span>
+                        ✓
+                    </span>
+
+
+                    <div>
+
+
+                        <strong>
+                            Image uploaded successfully
+                        </strong>
+
+
+                        <p>
+                            Your image is ready for AI analysis.
+                        </p>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
+
+
+        <!-- ================= CHATBOT BUTTON ================= -->
+
+        <button
+            class="chatbot-button"
+            id="chatbotButton"
+            aria-label="Open SkinGuard AI">
+
+            🤖
+
+        </button>
+
+
+
+        <!-- ================= CHAT WINDOW ================= -->
+
+        <div
+            class="chatbot"
+            id="chatbot">
+
+
+            <div class="chat-header">
+
+
+                <div>
+
+
+                    <strong>
+                        🤖 DermaScan AI
+                    </strong>
+
+
+                    <span>
+                        AI Assistant
+                    </span>
+
+
+                </div>
+
+
+                <button id="closeChat">
+                    ×
+                </button>
+
+
+            </div>
+
+
+
+            <div class="chat-body">
+
+
+                <div class="bot-message">
+
+
+                    Hi! 👋
+
+                    <br><br>
+
+                    I'm SkinGuard AI.
+                    How can I help you?
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="chat-input">
+
+
+                <input
+                    type="text"
+                    placeholder="Ask a question..."
+                    id="chatInput">
+
+
+                <button id="sendMessage">
+
+                    ➤
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>

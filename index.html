@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DERMASCAN AI
+    </title>
+<link rel="icon" type="image/png" href="c:\Users\elava\Downloads\0e39a743-bec1-4ac9-9020-8d3fb1b3d1f3.webp">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="auth-container">
+
+        <!-- LEFT BRANDING SECTION -->
+        <section class="branding">
+
+            <div class="brand-content">
+
+                <div class="skin-icon">
+                     <img src="C:\Users\elava\Downloads\0e39a743-bec1-4ac9-9020-8d3fb1b3d1f3.webp" height="45">
+                </div>
+
+                <h1>
+                    Derma<span>Scan AI</span>
+                </h1>
+
+                <p class="tagline">
+                    Early Detection. Healthier Tomorrow.
+                </p>
+
+                <p class="description">
+                    Upload your skin image and get an
+                    AI-powered analysis for better skin health.
+                </p>
+
+            </div>
+
+            <div class="leaf-decoration">
+                🌿
+            </div>
+
+        </section>
+
+
+        <!-- AUTH SECTION -->
+        <section class="auth-section">
+
+            <div class="auth-card">
+
+                <!-- LOGIN FORM -->
+                <div class="form-container" id="loginForm">
+
+                    <h2>Login</h2>
+
+                    <p class="form-subtitle">
+                        Welcome back! Please login to your account.
+                    </p>
+
+                    <form id="login">
+
+                        <div class="input-group">
+                            <span>👤</span>
+
+                            <input
+                                type="email"
+                                id="loginEmail"
+                                placeholder="Email or Username"
+                                required
+                            >
+                        </div>
+
+
+                        <div class="input-group">
+                            <span>🔒</span>
+
+                            <input
+                                type="password"
+                                id="loginPassword"
+                                placeholder="Password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                onclick="togglePassword('loginPassword', this)"
+                            >
+                                👁
+                            </button>
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="primary-btn"
+                        >
+                            Login
+                        </button>
+
+                    </form>
+
+
+                    <p class="switch-text">
+                        Don't have an account?
+                        <button
+                            type="button"
+                            onclick="showRegister()"
+                            class="link-btn"
+                        >
+                            Register
+                        </button>
+                    </p>
+
+                </div>
+
+
+                <!-- REGISTER FORM -->
+                <div
+                    class="form-container hidden"
+                    id="registerForm"
+                >
+
+                    <div class="register-logo">
+                        👤
+                    </div>
+
+                    <h2>Create Your Account</h2>
+
+                    <p class="form-subtitle">
+                        Join us for a healthier skin journey.
+                    </p>
+
+
+                    <form id="register">
+
+                        <div class="input-group">
+                            <span>👤</span>
+
+                            <input
+                                type="text"
+                                id="fullName"
+                                placeholder="Full Name"
+                                pattern="[A-Za-z\s]+"
+                                title="Name should contain letter only"
+                                required
+                            >
+                        </div>
+
+
+                        <div class="input-group">
+                            <span>✉️</span>
+
+                            <input
+                                type="email"
+                                id="registerEmail"
+                                placeholder="Email"
+                                required
+                            >
+                        </div>
+
+
+                        <div class="input-group">
+                            <span>🔒</span>
+
+                            <input
+                                type="password"
+                                id="registerPassword"
+                                placeholder="Password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                onclick="togglePassword('registerPassword', this)"
+                            >
+                                👁
+                            </button>
+                        </div>
+
+
+                        <div class="input-group">
+                            <span>🔒</span>
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                placeholder="Confirm Password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                onclick="togglePassword('confirmPassword', this)"
+                            >
+                                👁
+                            </button>
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="primary-btn"
+                        >
+                            Register
+
+                        </button>
+                       
+                    </form>
+
+
+                    <p class="switch-text">
+                        Already have an account?
+
+                        <button
+                            type="button"
+                            onclick="showLogin()"
+                            class="link-btn"
+                        >
+                            Login
+                        </button>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
