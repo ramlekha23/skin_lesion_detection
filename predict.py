@@ -16,7 +16,7 @@ PROJECT_DIR = r"D:\Skin_cancer"
 
 MODEL_PATH = os.path.join(
     PROJECT_DIR,
-    "skin_cancer_efficientnetb0_best.weights.h5"
+    "skin_cancer_efficientnetb0_v4_best.weights.h5"
 )
 
 CLASS_NAMES_PATH = os.path.join(
